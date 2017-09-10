@@ -1,3 +1,4 @@
+import { ACDigItem } from '../world/acdigitem';
 import { ACTree } from '../world/actee';
 import { NookScene } from './nook.scene';
 import { DialogComponent } from '../component/dialog.component';
@@ -130,6 +131,11 @@ export class TownScene extends BaseScene {
                 this.dialog.Visible = true;
             }
 
+             if (playerTool.Type == ACItemTypes.Shovel && item == null) {
+                let item: ACItem = this.world.Player.digHole(this.world.Town.MapItems);
+            }
+
+
             //pickup item
             if (item != null) {
 
@@ -150,6 +156,19 @@ export class TownScene extends BaseScene {
 
                 }
 
+                else if(playerTool.Type == ACItemTypes.Shovel && item.Type == ACItemTypes.Dig) {
+    
+                    if (item != null) {
+
+                        let digItem:ACDigItem = <ACDigItem>item;
+                        this.world.Player.addToPockets(digItem.Item);
+
+                        //TDOD: remove dig x from map
+                        this.alert = new AlertComponent("You found " + digItem.Item.Name, "");
+                    }
+                }
+    
+
                 else if(item.Type != ACItemTypes.Rock) {
 
                     let returnCode = this.world.Player.pickup(this.world.Town.MapItems);
@@ -165,16 +184,6 @@ export class TownScene extends BaseScene {
                     }
                 }
             }
-
-            else if (playerTool.Type == ACItemTypes.Shovel) {
-                let item: ACItem = this.world.Player.digHole(this.world.Town.MapItems);
-
-                if (item != null) {
-                    this.world.Player.addToPockets(item);
-                    this.alert = new AlertComponent("You found " + item.Name, "");
-                }
-            }
-
 
 
 
@@ -226,6 +235,9 @@ export class TownScene extends BaseScene {
                 this.screen.position(<number>this.world.Player.AcreSquareX - 1, this.world.Player.AcreSquareY);
             }
         }
+
+        //TODO:axe
+        //TODO: rod, net
 
         this.screen.write(tool);
     }

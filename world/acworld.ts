@@ -27,15 +27,15 @@ export class ACWorld {
 
         let dummy:ACItem = new ACItem();
         dummy.Name = "dummy";
-        dummy.Type = ACItemTypes.Fruit;
+        dummy.Type = ACItemTypes.Apple;
 
         let dummy2:ACItem = new ACItem();
         dummy2.Name = "dummy";
-        dummy2.Type = ACItemTypes.Fruit;
+        dummy2.Type = ACItemTypes.Apple;
 
         let dummy3:ACItem = new ACItem();
         dummy3.Name = "dummy";
-        dummy3.Type = ACItemTypes.Fruit;
+        dummy3.Type = ACItemTypes.Apple;
 
 
 

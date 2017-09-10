@@ -52,13 +52,13 @@ export class ACPlayer {
         item.Description = "This is a dummy item";
         item.Type = ACItemTypes.Unknown;
 
-        let item2 = new ACItem();
-        item2.Name = "Shovel";
-        item2.Type = ACItemTypes.Shovel;
+  //      let item2 = new ACItem();
+   //     item2.Name = "Shovel";
+    //    item2.Type = ACItemTypes.Shovel;
 
         this.items[0] = item;
 
-        this.items[1] = item2;
+     //   this.items[1] = item2;
 
     }
 

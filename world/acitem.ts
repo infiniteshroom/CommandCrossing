@@ -22,6 +22,7 @@ export enum ACItemTypes
     Hole = 19,
     Dig = 20,
     Tree = 21,
+    Apple = 29,
     Shovel = 22,
     FishingRod = 23,
     BugNet = 24,
@@ -61,6 +62,7 @@ export class ACItem {
         "Dig":"X",
         "Tree":"🌳",
         "Sold": "☒",
+        "Apple": "🍎",
         "Nooks": "🍂",
         "Rock": "●",
         "Shovel": "⚒",
@@ -104,5 +106,15 @@ export class ACItem {
     getSymbol():string  {
         let typeName = ACItemTypes[this.type]
         return this.symbols[typeName];
+    }
+
+    __clone():ACItem {
+        let item:ACItem = new ACItem();
+        item.description = this.description;
+        item.name = this.name;
+        item.price = this.price;
+        item.type = this.type;
+
+        return item;
     }
 }

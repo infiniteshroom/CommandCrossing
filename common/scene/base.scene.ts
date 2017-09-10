@@ -51,4 +51,6 @@ export class BaseScene implements SceneInterface {
     music(player:any) {
 
     }
+
+    
 }

@@ -11,6 +11,8 @@ import { ACPlayerDirection } from './../world/acplayer';
 import { ACWorld } from './../world/acworld';
 import { BaseScene } from './../common/scene/base.scene';
 
+import * as clone from "deep-clone-ts";
+
 import * as charm from 'charm';
 
 export class NookScene extends BaseScene {
@@ -57,11 +59,19 @@ export class NookScene extends BaseScene {
                             this.alert = new AlertComponent("Hm, it appears your pockets are full. I'm so sorry! But you must remove something before I can sell this to you.", "Tom Nook");
                         }
 
+    
+   
+
+                        let cloneItem:ACItem = <ACItem>item.__clone();
+                        this.world.Player.addToPockets(cloneItem);
+
                         this.world.Player.Bells = this.world.Player.Bells - item.Price;
                         item.Type = ACItemTypes.Sold;
 
                         this.alert = new AlertComponent("Thanks much!", "Tom Nook");
                         this.alert.Visible = true;
+
+                        
                     }
                 }
 
