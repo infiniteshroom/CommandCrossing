@@ -1,3 +1,4 @@
+import { NookScene } from './nook.scene';
 import { DialogComponent } from '../component/dialog.component';
 import { ACNPC } from '../world/acnpc';
 import { ACItem, ACItemTypes } from '../world/acitem';
@@ -107,6 +108,7 @@ export class TownScene extends BaseScene {
         if (key == 'x') {
             let playerTool: ACItem = this.world.Player.Equipment === undefined ? new ACItem() : this.world.Player.Equipment;
             let npc: ACNPC = this.world.Player.CheckNPC(this.world.Town.MapNPC);
+            let item:ACItem = this.world.Player.CheckItem(this.world.Town.MapItems);
 
             //talk to npc
             if (npc != null && !this.dialog.Visible && !this.alert.Visible)  {
@@ -128,17 +130,26 @@ export class TownScene extends BaseScene {
             }
 
             //pickup item
-            if (this.world.Player.CheckItem(this.world.Town.MapItems) != null) {
-                let returnCode = this.world.Player.pickup(this.world.Town.MapItems);
+            if (item != null) {
 
-                if (returnCode == -2) {
-
-                    //TODO:may remove this should be obvious there's nothing to pickup
-                    this.alert = new AlertComponent("There is nothing to pickup...", "");
+                
+                if(item.Type == ACItemTypes.Nooks) {
+                    SceneManager.set(new NookScene(this.screen, this.world));
                 }
 
-                else if (returnCode == -1) {
-                    this.alert = new AlertComponent("Hmm seems your pockets are full", "");
+                else {
+
+                    let returnCode = this.world.Player.pickup(this.world.Town.MapItems);
+
+                    if (returnCode == -2) {
+
+                        //TODO:may remove this should be obvious there's nothing to pickup
+                        this.alert = new AlertComponent("There is nothing to pickup...", "");
+                    }
+
+                    else if (returnCode == -1) {
+                        this.alert = new AlertComponent("Hmm seems your pockets are full", "");
+                    }
                 }
             }
 

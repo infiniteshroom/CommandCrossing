@@ -474,7 +474,7 @@ export class ACPlayer {
 
         //if there's a hole in the way don't allow moving.
         if (item != null) {
-            if (item.Type == ACItemTypes.Hole) {
+            if (item.Type == ACItemTypes.Hole || item.Type == ACItemTypes.Nooks) {
                 return;
             }
         }

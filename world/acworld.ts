@@ -19,9 +19,9 @@ export class ACWorld {
         this.town.Name = "Nintendo Land";
         //this.player.name
         let item = new ACItem();
-        item.Name = "Dummy item";
-        item.Type = ACItemTypes.Fossil;
-        this.town.MapItems["A1"][3] = item;
+        item.Name = "Nooks Cranny";
+        item.Type = ACItemTypes.Nooks;
+        this.town.MapItems["A2"][13] = item;
 
         this.town.MapNPC["A1"][5] = this.villagers["Bob"];
         this.town.MapNPC["A2"][3] = this.villagers["Alfonso"];

@@ -58,7 +58,7 @@ export class TitleScene extends BaseScene {
         }
 
         else {
-            SceneManager.set(new NookScene(this.screen,this.world));
+            SceneManager.set(new TownScene(this.screen,this.world));
         }
     }
 
