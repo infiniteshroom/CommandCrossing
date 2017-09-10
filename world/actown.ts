@@ -1,0 +1,162 @@
+import { ACItem } from './acitem';
+
+import * as charm from "charm";
+
+export enum ACTerrainType {
+    NormalTree = 1,
+    FruitTree = 2,
+    Grass = 3,
+    Beach = 4,
+    River = 5,
+    RiverEdge = 6,
+    Hole = 7,
+    Exit = 8,
+    Floor = 9,
+}
+
+
+export class ACTown {
+    protected name: string = '';
+    protected clock: Date = new Date();
+    protected mapItems: any = {};
+    protected mapTerrian: any = {};
+    protected mapNPC: any = {};
+
+    constructor() {
+        let arces = [
+            "A1", "A2", "A3", "A4", "A5",
+            "B1", "B2", "B3", "B4", "B5",
+            "C1", "C2", "C3", "C4", "C5",
+            "D1", "D2", "D3", "D4", "D5",
+            "E1", "E2", "E3", "E4", "E5",
+            "F1", "F2", "F3", "F4", "F5"
+        ];
+
+        for (var i in arces) {
+            let arce = arces[i];
+
+            this.mapItems[arce] = new Array(256);
+            this.mapItems[arce].fill(null, 0, 256);
+
+            this.mapNPC[arce] = new Array(256);
+            this.mapItems[arce].fill(null, 0, 256);
+
+
+            this.mapTerrian[arce] = new Array(256);
+
+            if(parseInt(i) > 25) {
+                this.mapTerrian[arce] = [
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
+                    ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,
+                    ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,
+                    ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,
+                    ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,
+                ]
+              //  this.mapTerrian[arce].fill(ACTerrainType.Beach, 192, 223);
+               // this.mapTerrian[arce].fill(ACTerrainType.River, 224, 255);
+            }
+
+            else {
+                this.mapTerrian[arce].fill(ACTerrainType.Grass, 0, 256);
+            }
+        }
+    }
+
+    public renderViewPoint(arce: string, screen: charm.CharmInstance) {
+
+        //render terrian
+       // screen.write('═══════════════');
+
+        let count = 0;
+
+        for (var i in this.mapTerrian[arce]) {
+            if (count % 16 === 0) {
+                screen.write("\n");
+            }
+
+            //If item/npc exists render instead of terrian
+            let item = this.mapItems[arce][i];
+            let npc = this.mapNPC[arce][i];
+
+            if(npc != null) {
+                screen.foreground(npc.Color);
+                screen.write(npc.getSymbol());
+                screen.foreground("white");
+            }
+
+            else if(item != null) {
+                   screen.write(item.getSymbol());
+            }
+
+            else {
+                //Terrian checks
+                
+                if(this.mapTerrian[arce][i] == ACTerrainType.Beach) {
+                    screen.foreground("yellow");
+                    screen.write("░");
+                    screen.foreground("white");
+                }
+
+                else if(this.mapTerrian[arce][i] == ACTerrainType.River) {
+                    screen.foreground("blue");
+                    screen.write("▓");
+                    screen.foreground("white");
+                }
+                
+                else {
+                    screen.foreground("green");
+                    screen.write("▒");
+                    screen.foreground("white");
+                }
+            }
+            count++;
+        }
+
+       // screen.write('\n═══════════════');
+
+       /*@ - You   ! - NPC
+0 - Hole  & - Item
+X - Dig   ? - Tree
+^ - Shop   ▒ - Grass
+▓ - Water  ░ - Sand*/
+        let key = ``;
+
+        screen.write("\n" + key);
+
+
+
+    }
+
+    get Name(): string {
+        return this.name;
+    }
+
+    set Name(name: string) {
+        this.name = name;
+    }
+
+    get Clock(): Date {
+        return this.clock;
+    }
+
+    get MapItems():any {
+        return this.mapItems;
+    }
+
+    get MapNPC():any {
+        return this.mapNPC;
+    }
+
+
+}

@@ -1,0 +1,174 @@
+[
+    {
+        "name": "Ace",
+        "personality": "Jock",
+        "color": "cyan",
+        "animal": "Bird",
+        "dob": "13/03",
+        "catchphrase": "ace"
+    },
+    {
+        "name": "Agent S",
+        "personality": "Peppy",
+        "color": "cyan",
+        "animal": "Squirrel",
+        "dob": "02/07",
+        "catchphrase": "sidekick"
+    },
+    {
+        "name": "Alfonso",
+        "personality": "Lazy",
+        "color": "red",
+        "animal": "Alligator",
+        "dob": "09/06",
+        "catchphrase": "it'sa me"
+    },
+    {
+        "name": "Alli",
+        "personality": "Snooty",
+        "color": "magenta",
+        "animal": "Alligator",
+        "dob": "08/11",
+        "catchphrase": "graaagh"
+    },
+    {
+        "name": "Amelia",
+        "personality": "Snooty",
+        "color": "magenta",
+        "animal": "Eagle",
+        "dob": "19/11",
+        "catchphrase": "cuz"
+    },
+    {
+        "name": "Anchovy",
+        "personality": "Lazy",
+        "color": "blue",
+        "animal": "Bird",
+        "dob": "04/03",
+        "catchphrase": "chuurp"
+    },
+    {
+        "name": "Antonio",
+        "personality": "Jock",
+        "color": "cyan",
+        "animal": "Anteater",
+        "dob": "20/10",
+        "catchphrase": "honk"
+    },
+    {
+        "name": "Apollo",
+        "personality": "Cranky",
+        "color": "blue",
+        "animal": "Eagle",
+        "dob": "04/07",
+        "catchphrase": "pah"
+    },
+    {
+        "name": "Aurora",
+        "personality": "Normal",
+        "color": "magenta",
+        "animal": "Penguin",
+        "dob": "27/01",
+        "catchphrase": "b-b-baby"
+    },
+    {
+        "name": "Bea",
+        "personality": "Normal",
+        "color": "magenta",
+        "animal": "Dog",
+        "dob": "20/08",
+        "catchphrase": "bingo"
+    },
+    {
+        "name": "Baabara",
+        "personality": "Snooty",
+        "color": "magenta",
+        "animal": "Sheep",
+        "dob": "28/03",
+        "catchphrase": "daahling"
+    },
+    {
+        "name": "Bella",
+        "personality": "Peppy",
+        "color": "magenta",
+        "animal": "Mouse",
+        "dob": "28/12",
+        "catchphrase": "eeks"
+    },
+    {
+        "name": "Belle",
+        "personality": "Peppy",
+        "color": "magenta",
+        "animal": "Cow",
+        "dob": "25/10",
+        "catchphrase": "cuddles"
+    },
+    {
+        "name": "Bessie",
+        "personality": "Normal",
+        "color": "magenta",
+        "animal": "Cow",
+        "dob": "14/04",
+        "catchphrase": "buttercup"
+    },
+    {
+        "name": "Big Top",
+        "personality": "Lazy",
+        "color": "cyan",
+        "animal": "Elephant",
+        "dob": "03/10",
+        "catchphrase": "villain"
+    },
+    {
+        "name": "Bill",
+        "personality": "Jock",
+        "color": "cyan",
+        "animal": "Duck",
+        "dob": "01/02",
+        "catchphrase": "quacko"
+    },
+    {
+        "name": "Biskit",
+        "personality": "Lazy",
+        "color": "blue",
+        "animal": "Dog",
+        "dob": "13/10",
+        "catchphrase": "dawg"
+    },
+    {
+        "name": "Blaire",
+        "personality": "Snooty",
+        "color": "magenta",
+        "animal": "Squirrel",
+        "dob": "03/07",
+        "catchphrase": "nutlet"
+    },
+
+    {
+        "name": "Bluebear",
+        "personality": "Peppy",
+        "color": "magenta",
+        "animal": "Cub",
+        "dob": "24/06",
+        "catchphrase": "peach"
+    },
+
+    {
+        "name": "Bluebear",
+        "personality": "Peppy",
+        "color": "magenta",
+        "animal": "Cub",
+        "dob": "24/06",
+        "catchphrase": "peach"
+    },
+
+
+    {
+        "name": "Bob",
+        "personality": "Lazy",
+        "color": "blue",
+        "animal": "Cat",
+        "dob": "01/01",
+        "catchphrase": "pthhhpth"
+    }
+]

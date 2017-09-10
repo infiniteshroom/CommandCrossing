@@ -1,0 +1,42 @@
+{
+    "Greetings": [
+        "Hey, {catchphrase}...",
+        "Good morning... Good evening... Whatever it is, {catchphrase}...",
+        "What the...? {player}! Whoa, whoa! Slow down! You're talking waaay too fast. I'm not going anywhere, you know, {catchphrase}!",
+        "Nice night, huh, {player}?",
+        "Hey, good morning! You remember my name by now, right, {catchphrase}? Remember? My Name? Yup, I'm {name}. Listen, this is embarrassing, but I was freaking out...I often forget my own name.",
+        "Let's see here, now... You're... No, no, don't say! ...{player}, right? Man, if you're heading out at this time of night, you must have overslept something fierce, {catchphrase}!",
+        "I'm starving {catchphrase}! If I don't get some food in me, I'm gonna flip my wig. I'm serious right now! Huh?! Whuzzuh?! Oh man you're just in time {catchphrase}! You brough me...you brought me...something to eat!...No, of course you didn't.",
+        "Hey, look! It's my old buddy {player} again! {catchphrase}!",
+        "Hey again, {player}",
+        "Aw, are you feeling lonely?",
+        "Well, what do you want to chat about, {catchphrase}"
+    ],
+    "Introductions": [
+        "Umm, what's up, {catchphrase}?",
+        "So, what do you need, {catchphrase}?",
+        "Yeah, so what did you need me for, {catchphrase}",
+        "Anyway, did you need something?",
+        "What can I help you with this time, {catchphrase}?"
+    ],
+    "Nevermind": [
+        "Oh, {catchphrase}.",
+        "Sure, OK. That's fine, {catchphrase}.",
+        "That's fine, {catchphrase}",
+        "No Problem, {catchphrase}",
+        "See you later,{catchphrase}"
+    ],
+    "Chat": [
+        "You know, {player}, you've got one unusual name, {catchphrase}! I mean, it's just plain unusual. Heh heh heh heh heh. I've been thinking about that since early yesterday,{catchphrase}. Yep. That doesn't make me some kind of freak, does it?",
+        "Man, those are some nice clothes. You've got an eye for fashion. I mean, even I can see that. Choosing smooth duds to wear is one of life's little pleasures, you know what I'm saying {catchphrase}? If anyone gives you flack about your getup. lemme know. I'm your number one...um....fashion fan... You should spend all your time and money on clothes, become {town}'s very own Fashion guru.",
+        "Psst! {player}! I want to let you in on a little secret....You wanna hear it, {catchphrase}? I heard that if you dig holes in certain places, and bury money in them...something will happen.. I don't have any bells, so I've not tried So, you should give it a shot {player}!",
+        "I've got a math problem for you {catchphrase} Seven baby birds sat on a tree. Then their mom and dad come back with food.^So how many birds in total were sitting in the tree ....S-sob! I'm sorry, but I can't focus right now! I'm just so glad the bird family was reunited",
+        "I'm debating about what's the best way to enjoy the kind of weather we're having today. But if I don't hurry up {catchphrase} and decide the entire day is gonna be over!",
+        "I'm pretty forgetful, but I'll remember to record the good times we've shared... once I locate where I left my notebook {catchphrase}.",
+        "Yeah {player}, there's nothing better than a good sleep. Sleeping well into the afternoon is good for your health. I read it in a magazine somewhere {catchphrase}!",
+        "I was trying to open my drawer with my foot, and I stubbed my toe, {catchphrase}. It hurt so much I cried, but I still want to learn how to do chores with only my feet. It's a long-term goal of mine.",
+        "Do you have a favorite place? You know, a place where you can take a midday nap when you're tired? Huh? Oh me? Well, when you're out, sometimes I like to snooze on your floor!",
+        "My New Year's resolution is to eat vanilla pudding and creme brulee until I drop.",
+        "So I wanted to talk to you... But I forgot what I was going to say. Sorry about that. I'll try really hard to remember, {catchphrase}"
+    ] 
+}
