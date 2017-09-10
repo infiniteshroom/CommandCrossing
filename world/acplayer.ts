@@ -42,7 +42,7 @@ export class ACPlayer {
         this.acreSquareX = 1;
         this.acreSquareY = 1;
         this.direction = ACPlayerDirection.East;
-        this.bells = 10000;
+        this.bells = 500;
         this.location = ACPlayerLocation.Map;
 
         this.items = new Array(18);
@@ -68,6 +68,10 @@ export class ACPlayer {
 
     get Bells(): number {
         return this.bells;
+    }
+
+    set Bells(value:number) {
+        this.bells = value;
     }
 
     get Equipment(): ACItem {

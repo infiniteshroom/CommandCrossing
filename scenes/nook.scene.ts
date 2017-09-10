@@ -4,7 +4,7 @@ import { AlertComponent } from '../component/alert.component';
 import { Music } from '../common/music';
 import { ACShopTiles } from '../world/acshop';
 import { ACNooks } from '../world/acnooks';
-import { ACItem } from '../world/acitem';
+import { ACItem, ACItemTypes } from '../world/acitem';
 import { TownScene } from './town.scene';
 import { SceneManager } from '../common/scene/scenemanager';
 import { ACPlayerDirection } from './../world/acplayer';
@@ -38,12 +38,38 @@ export class NookScene extends BaseScene {
 
     showBuyItemDialog(item: ACItem): void {
 
+        if(item.Type == ACItemTypes.Sold) {
+            return;
+        }
+
         this.dialog = new DialogComponent("That is a " + item.Name.toString() + " The price is " + item.Price + " bells \n It's a steal at that price! Would you like it?" , "Tom Nook", ["I'll buy it", "Nevermind.."]);
         this.dialog.onChoice = (option:number) => {
 
+                if(option == 0) {
 
-                this.alert = new AlertComponent("Thanks much!", "Tom Nook");
-                this.alert.Visible = true;
+                    if(this.world.Player.Bells < item.Price) {
+                        this.alert = new AlertComponent("Uh-oh! This is awkard..I'm afraid you, uh...don't have enough money! I'm so sorry! I can't sell it to you", "Tom Nook");
+                        this.alert.Visible = true; 
+                    }
+
+                    else {
+                        if(this.world.Player.getPockets().length === 18) {
+                            this.alert = new AlertComponent("Hm, it appears your pockets are full. I'm so sorry! But you must remove something before I can sell this to you.", "Tom Nook");
+                        }
+
+                        this.world.Player.Bells = this.world.Player.Bells - item.Price;
+                        item.Type = ACItemTypes.Sold;
+
+                        this.alert = new AlertComponent("Thanks much!", "Tom Nook");
+                        this.alert.Visible = true;
+                    }
+                }
+
+                else {
+                    //follow back for not buying item.
+                    this.alert = new AlertComponent("No..? You're Sure? Well, no matter! Feel free to keep browsing, hm?", "Tom Nook");
+                    this.alert.Visible = true;
+                }
         };
 
         this.dialog.Visible = true;

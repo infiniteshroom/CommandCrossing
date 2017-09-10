@@ -26,6 +26,7 @@ export enum ACItemTypes
     FishingRod = 23,
     BugNet = 24,
     Axe = 25,
+    Sold = 26,
 }
 
 export class ACItem {
@@ -57,6 +58,7 @@ export class ACItem {
         "Hole":"O",
         "Dig":"X",
         "Tree":"?",
+        "Sold": "☒",
         "Shovel": "⚒",
         "FishingRod": "⚒",
         "BugNet":"⚒",
