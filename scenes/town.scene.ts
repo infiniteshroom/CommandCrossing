@@ -1,3 +1,4 @@
+import { ACTree } from '../world/actee';
 import { NookScene } from './nook.scene';
 import { DialogComponent } from '../component/dialog.component';
 import { ACNPC } from '../world/acnpc';
@@ -137,7 +138,19 @@ export class TownScene extends BaseScene {
                     SceneManager.set(new NookScene(this.screen, this.world));
                 }
 
-                else {
+                else if(item.Type == ACItemTypes.Tree) {
+                    //shake it
+                    let tree:ACTree = <ACTree>item;
+                    let items:ACItem[] = tree.shake();
+
+                    if(items != null) {
+                        //place items on map
+                        this.world.Town.dropItemsFromTree(this.world.Player.getAcre(), this.world.Player.AcreSquareX, this.world.Player.AcreSquareY, items);
+                    }
+
+                }
+
+                else if(item.Type != ACItemTypes.Rock) {
 
                     let returnCode = this.world.Player.pickup(this.world.Town.MapItems);
 

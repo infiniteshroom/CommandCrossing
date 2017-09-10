@@ -138,6 +138,34 @@ X - Dig   ? - Tree
 
     }
 
+
+    //Max items allowed to drop from a tree is 3.
+    public dropItemsFromTree(acre:string, x: number, y:number, items:ACItem[]) {
+
+        for(let i = 0; i < items.length; i++) {
+            if(i == 0) {
+                //drop directly in front of tree
+                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+                
+            }
+
+            if(i == 1) {
+                //drop directly to right of tree
+                x += 2;
+                y -= 1;
+                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+            }
+
+            if(i == 2) {
+                //drop directly left of tree
+                x -= 2;
+                y -= 1;
+                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+                
+            }
+        }
+    }
+
     get Name(): string {
         return this.name;
     }
