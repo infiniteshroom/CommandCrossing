@@ -1,4 +1,5 @@
-import { ACItem } from '../world/acitem';
+import { MenuComponent } from '../component/menu.component';
+import { ACItem, ACItemTypes } from '../world/acitem';
 import { TownScene } from './town.scene';
 import { SceneManager } from '../common/scene/scenemanager';
 import { ACPlayerDirection } from './../world/acplayer';
@@ -11,6 +12,8 @@ export class PocketsScene extends BaseScene {
 
     tick = 0;
     selected = 1;
+
+    private menu:MenuComponent = new MenuComponent();
 
 
     constructor(screen: charm.CharmInstance, world: ACWorld) {
@@ -112,7 +115,9 @@ export class PocketsScene extends BaseScene {
         this.screen.write("==== Pockets ===\n\n");
         this.renderPockets();
 
-        this.screen.write("\n\nU - use, E - equip, D - drop, R - remove, T - take off");
+        //this.screen.write("\n\nU - use, E - equip, D - drop, R - remove, T - take off");
+
+        this.menu.draw(this.screen);
         this.tick++;
 
     }
@@ -120,71 +125,106 @@ export class PocketsScene extends BaseScene {
     processInput(key: any): void {
         super.processInput(key);
 
-        //e to equip 
+        this.menu.processInput(key);
 
-        if (key == '\u0071') {
-            //load town again
-            SceneManager.set(new TownScene(this.screen, this.world));
-        }
+        
+        if(!this.menu.Visible) {
 
-        if (key == '\u001B\u005B\u0041') {
-            if (this.selected > 6) {
-                this.selected -= 6;
+            if (key == '\u0071') {
+                //load town again
+                SceneManager.set(new TownScene(this.screen, this.world));
             }
-        }
-        if (key == '\u001B\u005B\u0043') {
 
-            if (this.selected < 18) {
-                this.selected++;
+            if (key == '\u001B\u005B\u0041') {
+                if (this.selected > 6) {
+                    this.selected -= 6;
+                }
             }
-        }
-        if (key == '\u001B\u005B\u0042') {
-            if (this.selected < 13) {
-                this.selected += 6;
-            }
-        }
-        if (key == '\u001B\u005B\u0044') {
-            if (this.selected > 1) {
-                this.selected--;
-            }
-        }
+            if (key == '\u001B\u005B\u0043') {
 
-        //r - remove
-        if(key == 'r') {
-            this.world.Player.removeFromPockets(this.selected - 1);
-        }
+                if (this.selected < 18) {
+                    this.selected++;
+                }
+            }
+            if (key == '\u001B\u005B\u0042') {
+                if (this.selected < 13) {
+                    this.selected += 6;
+                }
+            }
+            if (key == '\u001B\u005B\u0044') {
+                if (this.selected > 1) {
+                    this.selected--;
+                }
+            }
+        }   
 
-        if(key == 'b') {
+
+        if(key == 'x') {
             let items: ACItem[] = this.world.Player.getPockets();
             let item = items[this.selected - 1];
 
-            this.world.Player.buryItem(this.world.Town.MapItems, item);
+            this.menu = new MenuComponent(this.getOptionsForItem(item));
 
-            this.world.Player.removeFromPockets(this.selected - 1);
-        }
+            this.menu.onChange = (key:number, value:string) => {
+                let items: ACItem[] = this.world.Player.getPockets();
+                let item = items[this.selected - 1];
 
-        //d - drop
-        if(key == 'd') {
-            this.world.Player.dropItem(this.selected - 1, this.world.Town.MapItems);
-        }
+                switch(value.toLowerCase()) {
+                    case 'remove':
+                        this.world.Player.removeFromPockets(this.selected - 1);
+                    break;
 
-        if(key == 'e') {
-            let items: ACItem[] = this.world.Player.getPockets();
-            let item = items[this.selected - 1];
+                    case 'bury':
+                        this.world.Player.buryItem(this.world.Town.MapItems, item);
+            
+                        this.world.Player.removeFromPockets(this.selected - 1);
+                    break;
 
-            let itemType:number = item.Type;
+                    case 'drop':
+                        this.world.Player.dropItem(this.selected - 1, this.world.Town.MapItems);
+                    break;
 
-            //Lower end of types are equipment 
-            if(itemType >= 22) {
-                this.world.Player.Equipment = item;
+                    case 'equip':
+                        let itemType:number = item.Type;
+            
+                        //Lower end of types are equipment 
+                        if(itemType >= 22) {
+                            this.world.Player.Equipment = item;
+                        }
+                    break;
+
+                    case 'unequip':
+                        this.world.Player.Equipment = undefined;
+                    break;
+                }
             }
 
-
+            this.menu.Visible = true;
         }
 
-        if(key == 't') {
-            this.world.Player.Equipment = undefined;
+    }
+
+    private getOptionsForItem(item:ACItem):string[] {
+        let options = ["Use", "Remove", "Drop"];
+
+
+        if(this.world.Player.Equipment != null) {
+            if((item.Type == ACItemTypes.Shovel || item.Type == ACItemTypes.Axe) && this.world.Player.Equipment.Name == item.Name) {
+                options.push("Unequip");
+            }
+
+            if(this.world.Player.Equipment.Type == ACItemTypes.Shovel && item.Type != ACItemTypes.Shovel) {
+                options.push("Bury");
+            }
         }
+
+        if((item.Type == ACItemTypes.Shovel || item.Type == ACItemTypes.Axe) && this.world.Player.Equipment == null) {
+            options.push("Equip");
+        }
+
+        options.push("Cancel");
+
+        return options;
     }
 
 }

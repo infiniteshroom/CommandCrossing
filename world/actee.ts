@@ -19,7 +19,14 @@ export class ACTree extends ACItem {
     }
 
     get Items():ACItem[] {
-        return this.items;
+
+        let newItems:ACItem[] = [];
+
+        for(var i in this.items) {
+            newItems.push(this.items[i].__clone());
+        }
+        //clone all items;
+        return newItems;
     }
 
     set Items(value:ACItem[]) {

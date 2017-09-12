@@ -144,6 +144,18 @@ export class TownScene extends BaseScene {
                     SceneManager.set(new NookScene(this.screen, this.world));
                 }
 
+                else if(item.Type == ACItemTypes.Tree && playerTool.Type == ACItemTypes.Axe) {
+                    let tree:ACTree = <ACTree>item;
+                    let items:ACItem[] = tree.shake();
+
+                    if(items != null) {
+                        //place items on map
+                        this.world.Town.dropItemsFromTree(this.world.Player.getAcre(), this.world.Player.AcreSquareX, this.world.Player.AcreSquareY -1, items);
+                    }
+                
+                    item.Type = ACItemTypes.Stump;
+                }
+
                 else if(item.Type == ACItemTypes.Tree) {
                     //shake it
                     let tree:ACTree = <ACTree>item;
@@ -156,12 +168,19 @@ export class TownScene extends BaseScene {
 
                 }
 
+                else if(item.Type == ACItemTypes.Stump && playerTool.Type == ACItemTypes.Shovel) {
+                    let item: ACItem = this.world.Player.digHole(this.world.Town.MapItems);
+                }
+                
+
                 else if(playerTool.Type == ACItemTypes.Shovel && item.Type == ACItemTypes.Dig) {
     
                     if (item != null) {
 
                         let digItem:ACDigItem = <ACDigItem>item;
                         this.world.Player.addToPockets(digItem.Item);
+
+                        this.world.Player.removeItem(this.world.Town.MapItems);
 
                         //TDOD: remove dig x from map
                         this.alert = new AlertComponent("You found " + digItem.Item.Name, "");
@@ -236,7 +255,29 @@ export class TownScene extends BaseScene {
             }
         }
 
-        //TODO:axe
+
+        if (playerTool.Type == ACItemTypes.Axe) {
+            if (direction == ACPlayerDirection.North) {
+                tool = '▲';
+                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY - 1);
+            }
+
+            if (direction == ACPlayerDirection.East) {
+                tool = '►';
+                this.screen.position(<number>this.world.Player.AcreSquareX + 1, this.world.Player.AcreSquareY);
+            }
+
+            if (direction == ACPlayerDirection.South) {
+                tool = '▼'
+                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY + 1);
+            }
+
+            if (direction == ACPlayerDirection.West) {
+                tool = '◀';
+                this.screen.position(<number>this.world.Player.AcreSquareX - 1, this.world.Player.AcreSquareY);
+            }
+        }
+
         //TODO: rod, net
 
         this.screen.write(tool);

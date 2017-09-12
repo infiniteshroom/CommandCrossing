@@ -1,6 +1,7 @@
+import { ACPlayerDirection } from './acplayer';
 import { ACItem } from './acitem';
 
-import * as charm from "charm";
+import * as charm from 'charm';
 
 export enum ACTerrainType {
     NormalTree = 1,
@@ -137,7 +138,6 @@ X - Dig   ? - Tree
 
 
     }
-
 
     //Max items allowed to drop from a tree is 3.
     public dropItemsFromTree(acre:string, x: number, y:number, items:ACItem[]) {

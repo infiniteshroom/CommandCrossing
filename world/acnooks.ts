@@ -32,6 +32,12 @@ export class ACNooks extends ACShop {
         toolItem.Type = ACItemTypes.Shovel;
         toolItem.Price = 500;
 
+        let toolItem2:ACItem = new ACItem();
+        toolItem2.Name = "Axe";
+        toolItem2.Type = ACItemTypes.Axe;
+        toolItem2.Price = 500;
+
+
         let uitem = new ACItem();
         uitem.Type = ACItemTypes.Unknown;
         uitem.Name = "DUMMY";
@@ -62,7 +68,7 @@ export class ACNooks extends ACShop {
 
         this.mapItems[thridRow + 6] = uitem;
         this.mapItems[thridRow + 8] = toolItem;
-        this.mapItems[thridRow + 10] = toolItem;
+        this.mapItems[thridRow + 10] = toolItem2;
 
         this.mapItems[forthRow + 6] = item;
         this.mapItems[forthRow + 8] = item;

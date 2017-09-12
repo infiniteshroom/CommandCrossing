@@ -42,7 +42,7 @@ export class ACPlayer {
         this.acreSquareX = 1;
         this.acreSquareY = 1;
         this.direction = ACPlayerDirection.East;
-        this.bells = 500;
+        this.bells = 2000;
         this.location = ACPlayerLocation.Map;
 
         this.items = new Array(18);
@@ -389,7 +389,11 @@ export class ACPlayer {
     }
 
 
-    public CheckItem(mapItems: any): ACItem {
+    public removeItem(mapItems:any) {
+        return this.CheckItem(mapItems, true);
+    }
+
+    public CheckItem(mapItems: any, remove:boolean = false): ACItem {
 
         //check if item is underfoot
 
@@ -451,6 +455,9 @@ export class ACPlayer {
         //covers situations where the player is moving between arcs
         try {
             if (mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
+                if(remove) {
+                    mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+                }
                 return mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
 
             }
@@ -475,7 +482,8 @@ export class ACPlayer {
         //if there's a hole in the way don't allow moving.
         if (item != null) {
             if (item.Type == ACItemTypes.Hole || item.Type == ACItemTypes.Nooks 
-                || item.Type == ACItemTypes.Tree || item.Type == ACItemTypes.Rock)  {
+                || item.Type == ACItemTypes.Tree || item.Type == ACItemTypes.Rock
+                || item.Type == ACItemTypes.Stump)  {
                 return;
             }
         }

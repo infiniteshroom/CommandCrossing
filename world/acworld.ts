@@ -95,6 +95,10 @@ export class ACWorld {
         toolItem.Name = "Shovel";
         toolItem.Type = ACItemTypes.Shovel;
 
+        let axeItem:ACItem = new ACItem();
+        toolItem.Name = "Axe";
+        toolItem.Type = ACItemTypes.Axe;
+
         let uitem = new ACItem();
         uitem.Type = ACItemTypes.Unknown;
         uitem.Name = "DUMMY";
@@ -111,6 +115,6 @@ export class ACWorld {
         umbitem.Type = ACItemTypes.Umbrellas;
         umbitem.Name = "UMB";
 
-        return [uitem, uitem, toolItem, toolItem, item,item,item,fitem,citem, umbitem];
+        return [uitem, uitem, axeItem, axeItem, item,item,item,fitem,citem, umbitem];
     }
 }
