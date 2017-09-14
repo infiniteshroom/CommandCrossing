@@ -1,6 +1,32 @@
+import { ACPlayer, ACPlayerDirection, ACPlayerLocation } from './acplayer';
 import { ACShop, ACShopTiles } from './acshop';
 import { ACItem, ACItemTypes } from './acitem';
+
+export enum ACShopEvent {
+    SellItems = 1,
+}
+
 export class ACNooks extends ACShop {
+
+    protected itemsToSell:number[] = [];
+    protected events:any[] = [];
+
+    get ItemsToSell():number[] {
+        return this.itemsToSell;
+    }
+
+    set ItemsToSell(value:number[]) {
+        this.itemsToSell = value;
+    }
+
+    addEvent(value:ACShopEvent) {
+        this.events.push(value);
+    }
+
+    get Events():any {
+        return this.events;
+    }
+
     constructor() {
         super();
         this.name = "Nooks Cranny";
@@ -18,6 +44,13 @@ export class ACNooks extends ACShop {
         ];
 
         this.setRandItems();
+
+        //set player/Nooks position 
+        this.playerX = 12;
+        this.playerY = 7;
+        this.Direction = ACPlayerDirection.North;
+        this.npcX = 12;
+        this.npcY = 6;
 
     }
 

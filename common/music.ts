@@ -9,7 +9,6 @@ export class Music {
     public static playOverWorldMusic(time:string) {
 
         this.stopAll();
-        console.log("/home/mark/Documents/sites/commandCrossing/music/overworld/"+ time +".mp3");
         this.playMusic("/home/mark/Documents/sites/commandCrossing/music/overworld/"+ time +".mp3");
     
     }

@@ -1,3 +1,5 @@
+import { ACNooks } from './acnooks';
+import { ACShop } from './acshop';
 import { ACPlayerDirection } from './acplayer';
 import { ACItem } from './acitem';
 
@@ -22,6 +24,8 @@ export class ACTown {
     protected mapItems: any = {};
     protected mapTerrian: any = {};
     protected mapNPC: any = {};
+
+    protected shops:ACShop[] = [];
 
     constructor() {
         let arces = [
@@ -72,6 +76,8 @@ export class ACTown {
                 this.mapTerrian[arce].fill(ACTerrainType.Grass, 0, 256);
             }
         }
+
+        this.shops['nooks'] = new ACNooks();
     }
 
     public renderViewPoint(arce: string, screen: charm.CharmInstance) {
@@ -184,6 +190,11 @@ X - Dig   ? - Tree
 
     get MapNPC():any {
         return this.mapNPC;
+    }
+
+
+    getShop(name:string) {
+        return this.shops[name];
     }
 
 

@@ -4,6 +4,8 @@ import { ACItem, ACItemTypes } from './acitem';
 import { ACPlayer } from './acplayer';
 import { ACTown } from './actown';
 
+import { Logger } from './../common/logger';
+
 export class ACWorld {
     protected town:ACTown = new ACTown();
     protected player:ACPlayer = new ACPlayer();
@@ -12,6 +14,8 @@ export class ACWorld {
     //DBs
     protected villagers:any = {};
     protected items:any = {};
+
+    protected logger:Logger = new Logger();
 
     public load():void {
 
@@ -28,14 +32,17 @@ export class ACWorld {
         let dummy:ACItem = new ACItem();
         dummy.Name = "dummy";
         dummy.Type = ACItemTypes.Apple;
+        dummy.Price = 300;
 
         let dummy2:ACItem = new ACItem();
         dummy2.Name = "dummy";
         dummy2.Type = ACItemTypes.Apple;
+        dummy2.Price = 300;
 
         let dummy3:ACItem = new ACItem();
         dummy3.Name = "dummy";
         dummy3.Type = ACItemTypes.Apple;
+        dummy3.Price = 300;
 
 
 
@@ -82,6 +89,10 @@ export class ACWorld {
 
     get Player():ACPlayer {
         return this.player;
+    }
+
+    get Logger():Logger {
+        return this.logger;
     }
 
     //Used for testing Nooks

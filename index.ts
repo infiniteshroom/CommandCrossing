@@ -19,6 +19,8 @@ import { SceneInterface } from './common/scene/scene.interface';
 
 import { SceneManager } from './common/scene/scenemanager';
 
+import { Logger } from './common/logger';
+ 
 import * as charm from 'charm';
 
 /* 
@@ -45,6 +47,9 @@ import * as charm from 'charm';
            }
         };
         vm.execute();*/
+
+let logger = new Logger();
+logger.writeToLog("Info", "Test");
 
 let cli = charm();
 
