@@ -103,6 +103,7 @@ export class DialogComponent {
 
     public processInput(key) {
         if (key == 'z' && !this.isMenuVisible) {
+
             this.pageNo++;
         }
 
@@ -136,7 +137,6 @@ export class DialogComponent {
 
         if (this.visible) {
             let page = this.pages[this.pageNo];
-
 
             let lineOne = page[0] === undefined ? "" : page[0];
             let lineTwo = page[1] === undefined ? "" : page[1];

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+
+import { KKSliderScene } from './scenes/kkslider.scene';
+
 import { ACVM, ACVMAssembler, vmInterrupts } from './common/acvm';
 
 

@@ -1,4 +1,5 @@
 import { NookScene } from './nook.scene';
+import { KKSliderScene } from './kkslider.scene';
 import { Music } from '../common/music';
 import { TownScene } from './town.scene';
 import { SceneManager } from '../common/scene/scenemanager';
@@ -58,7 +59,8 @@ export class TitleScene extends BaseScene {
         }
 
         else {
-            SceneManager.set(new TownScene(this.screen,this.world));
+
+            SceneManager.set(new KKSliderScene(this.screen,this.world));
         }
     }
 
