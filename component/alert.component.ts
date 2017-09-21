@@ -9,6 +9,8 @@ export class AlertComponent {
 
     private readonly maxLineLength: number = 41;
     private readonly linesPerPage: number = 2;
+
+    public onComplete = null;
     
 
     constructor(text: string, subject: string, color:string='red') {
@@ -101,6 +103,10 @@ export class AlertComponent {
 
         if (this.pageNo + 1 > this.getMaxPages()) {
             this.visible = false;
+
+            if(this.onComplete != null) {
+                this.onComplete();
+            }
         }
 
         if (this.visible) {

@@ -2,7 +2,7 @@ import { AlertComponent } from '../component/alert.component';
 import { DialogComponent } from '../component/dialog.component';
 import { TitleScene } from './title.scene';
 import { Music } from '../common/music';
-import { TownScene } from './town.scene';
+import { TrainScene } from './train.scene';
 import { SceneManager } from '../common/scene/scenemanager';
 import { ACPlayerDirection } from './../world/acplayer';
 import { ACWorld } from './../world/acworld';
@@ -57,7 +57,7 @@ export class KKSliderScene extends BaseScene {
         }
 
         if(this.alert.Visible == false && this.stage == 2) {
-            SceneManager.set(new TownScene(this.screen, this.world));
+            SceneManager.set(new TrainScene(this.screen, this.world));
         }
 
         this.dialog.draw(this.screen);

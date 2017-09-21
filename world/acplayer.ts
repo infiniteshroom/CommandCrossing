@@ -17,7 +17,7 @@ export enum ACPlayerDirection {
 }
 
 export class ACPlayer {
-    protected name: string;
+    protected name: string = "";
     protected hair: number;
     protected face: number;
     protected bells: number;
@@ -114,6 +114,10 @@ export class ACPlayer {
 
     get Name(): string {
         return this.name;
+    }
+
+    set Name(value:string) {
+        this.name = value;
     }
 
     public buryItem(mapItems: ACItem[], item: ACItem): void {

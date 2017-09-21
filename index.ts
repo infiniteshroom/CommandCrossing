@@ -11,6 +11,9 @@ import { LogoScene } from './scenes/logo.scene';
 
 import { NookScene } from './scenes/nook.scene';
 
+import { TrainScene } from './scenes/train.scene';
+
+
 import { TitleScene } from './scenes/title.scene';
 
 import { TownScene } from './scenes/town.scene';
@@ -52,7 +55,7 @@ import * as charm from 'charm';
         vm.execute();*/
 
 let logger = new Logger();
-logger.writeToLog("Info", "Test");
+//logger.writeToLog("Info", "Test");
 
 let cli = charm();
 
