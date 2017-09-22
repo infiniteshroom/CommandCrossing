@@ -33,7 +33,7 @@ export class PocketsScene extends BaseScene {
         for (let i = 1; i <= 18; i++) {
 
             let item = pockets[i - 1] === undefined ? new ACItem() : pockets[i - 1];
-            
+
             if(equipment.Type == item.Type && item.Type != null) {
                 this.screen.display("bright");
                 this.screen.foreground("blue");

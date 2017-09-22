@@ -45,6 +45,10 @@ export class ACShop {
         this.mapTerrian.fill(null, 0, this.MAXTILES);
     }
 
+    get MapItems():ACItem[] {
+        return this.mapItems;
+    }
+
     get NPC():ACNPC {
         return this.npc;
     }
@@ -209,6 +213,10 @@ export class ACShop {
             }
 
         }
+    }
+
+    set MapItems(value:ACItem[]) {
+        this.mapItems = value;
     }
 
 

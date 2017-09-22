@@ -2,9 +2,11 @@ import { ACTree } from './actee';
 import { ACNPC } from './acnpc';
 import { ACItem, ACItemTypes } from './acitem';
 import { ACPlayer } from './acplayer';
-import { ACTown } from './actown';
+import { ACTown, ACTerrainType} from './actown';
 
 import { Logger } from './../common/logger';
+
+import { SerializationHelper } from './../common/utils';
 
 export class ACWorld {
     protected town:ACTown = new ACTown();
@@ -127,5 +129,123 @@ export class ACWorld {
         umbitem.Name = "UMB";
 
         return [uitem, uitem, axeItem, axeItem, item,item,item,fitem,citem, umbitem];
+    }
+
+    hasSave() {
+        var fs = require('fs');
+
+        let saveData = fs.readFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json");
+
+        saveData = JSON.parse(saveData);
+
+        if(saveData.town.name != undefined) {
+            return true;
+        } 
+
+        return false;
+    }
+
+    //TODO: tweak as save game changes...
+    loadGame():void {
+        
+        //TODO: support more than one player...
+        var fs = require('fs');
+        let saveData = fs.readFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json");
+
+        saveData = JSON.parse(saveData);
+
+        let player:any = saveData.players[0];
+
+        this.town.Name = saveData.town.name;
+
+        this.town.MapTerrian = saveData.town.terrian;
+        this.town.MapItems = this.fixMapArrays(saveData.town.items, "item");
+
+
+        this.town.MapNPC = this.fixMapArrays(saveData.town.npcs, "npc");
+
+        let nooks:any = this.town.getShop("nooks");
+        nooks.MapItems = this.fixItemsArray(saveData.town.nooks.items);
+
+        this.player.Name = player.name;
+        this.player.Bells = player.bells;
+        this.player.Items = this.fixItemsArray(player.items);
+
+    }
+
+    /*
+        The following functions are used to fix issue with typescript parsed json not
+        retaining class information
+    */
+    fixMapArrays(data:any, type:string) {
+        for(let i in data) {
+            let acre = i;
+
+            for(let item in data[acre]) {
+                switch(type) {
+                    case 'item':
+
+                    if(data[acre][item] != undefined) {
+                        data[acre][item] = (<any>Object).assign(new ACItem(), data[acre][item]);
+                    }
+
+                    break;
+
+                    case 'npc':
+
+                    if(data[acre][item] != undefined) {
+                        data[acre][item] = (<any>Object).assign(new ACNPC(), data[acre][item]);
+                    }
+
+                    break;
+
+                }
+            } 
+        }
+
+        return data;
+    }
+
+    fixItemsArray(data:any) {
+        for(let i in data) {
+
+           if(data[i] == "null" || data[i] === null) {
+                data[i] = undefined;
+            }
+
+            if(data[i] != undefined) { 
+              data[i] = (<any>Object).assign(new ACItem(), data[i]);
+            }
+        }
+
+        return data;
+    }
+
+
+    //TODO: add data for saving as needed
+    saveGame(): void {
+        let saveData = {
+            town: {
+               name: this.town.Name,
+               terrian: this.town.MapTerrian,
+               items: this.town.MapItems,
+               npcs: this.town.MapNPC,
+               nooks: {
+                   items: this.town.getShop("nooks").MapItems
+               }
+
+            },
+
+            players: [
+                {
+                    name: this.Player.Name,
+                    bells: this.Player.Bells,
+                    items: this.Player.getPockets(),
+                }
+            ],
+        }
+
+        var fs = require('fs');
+        fs.writeFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json", JSON.stringify(saveData));
     }
 }

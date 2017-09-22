@@ -106,6 +106,10 @@ export class ACPlayer {
         this.acreSquareY = value;
     }
 
+    set Items(value:any) {
+        this.items = value;
+    }
+
     public getAcre(): string {
         let letters: string[] = ["0", "A", "B", "C", "D", "E", "F"];
 

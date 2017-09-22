@@ -60,7 +60,16 @@ export class TitleScene extends BaseScene {
 
         else {
 
-            SceneManager.set(new KKSliderScene(this.screen,this.world));
+            if(this.world.hasSave()) {
+
+              this.world.loadGame();
+
+            SceneManager.set(new TownScene(this.screen, this.world));
+            }
+
+            else {
+              SceneManager.set(new KKSliderScene(this.screen, this.world));
+            }
         }
     }
 

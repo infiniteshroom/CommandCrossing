@@ -192,10 +192,23 @@ X - Dig   ? - Tree
         return this.mapNPC;
     }
 
+    get MapTerrian(): any {
+        return this.mapTerrian;
+    }
+    
+    set MapItems(value:any) {
+        this.mapItems = value;
+    }
 
+    set MapNPC(value:any) {
+        this.mapNPC = value;
+    }
+
+    set MapTerrian(value:any) {
+        this.mapTerrian = value;
+    }
     getShop(name:string) {
         return this.shops[name];
     }
-
 
 }

@@ -101,6 +101,13 @@ export class TownScene extends BaseScene {
                 this.world.Player.move(this.world.Town.MapItems, this.world.Town.MapNPC)
                 //player.playEffect("/home/mark/Documents/sites/commandCrossing/music/effects/walking.wav");
             }
+
+            if(key.charCodeAt(0) == 13) {
+                
+                this.world.saveGame();
+                this.alert = new AlertComponent("Game has been saved!", "");
+                this.alert.Visible = true;
+            }
         }
 
         //equip/items todo:enter press
@@ -209,6 +216,8 @@ export class TownScene extends BaseScene {
 
 
         }
+
+
 
         //q - quit
         if (key == '\u0071') {

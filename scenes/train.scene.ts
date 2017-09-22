@@ -42,7 +42,7 @@ export class TrainScene extends BaseScene {
 
     dialogInProcess:boolean = false;
 
-    roverState:RoverStates = RoverStates.TalkingToNook;
+    roverState:RoverStates = RoverStates.Walking;
 
     
     private entry:EntryComponent = new EntryComponent("", "");
@@ -364,6 +364,8 @@ export class TrainScene extends BaseScene {
         this.alert.onComplete = () => {
 
             this.roverState = RoverStates.WalkingInside;
+
+            //Investigate this: For some reason we need to clear down alert here :/
             this.alert = new AlertComponent("","");
             this.dialogInProcess = false;
         }
