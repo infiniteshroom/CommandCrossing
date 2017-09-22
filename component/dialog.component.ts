@@ -1,4 +1,6 @@
 import * as charm from 'charm';
+import { Logger } from './../common/logger';
+
 export class DialogComponent {
 
     private pages: string[][];
@@ -102,6 +104,10 @@ export class DialogComponent {
     }
 
     public processInput(key) {
+
+        let logger:Logger = new Logger();
+        logger.writeToLog("debug","Key is pressed on dialog...?");
+
         if (key == 'z' && !this.isMenuVisible) {
 
             this.pageNo++;

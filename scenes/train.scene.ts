@@ -42,7 +42,7 @@ export class TrainScene extends BaseScene {
 
     dialogInProcess:boolean = false;
 
-    roverState:RoverStates = RoverStates.Walking;
+    roverState:RoverStates = RoverStates.TalkingToNook;
 
     
     private entry:EntryComponent = new EntryComponent("", "");
@@ -61,6 +61,7 @@ export class TrainScene extends BaseScene {
 
     draw(): void {
         super.draw();
+        this.screen.erase("down");
 
         process.stderr.write('\x1B[?25l');
 
@@ -104,6 +105,7 @@ export class TrainScene extends BaseScene {
 
         if(this.roverY == 8 && this.roverX == 4 && this.roverState == RoverStates.WalkingInside) {
             this.roverState = RoverStates.Money;
+            this.dialogInProcess = false;
         }
 
         //do this every 20 ticks
@@ -212,6 +214,7 @@ export class TrainScene extends BaseScene {
     processInput(key: any): void {
         super.processInput(key);
         
+
         this.entry.processInput(key);
         this.dialog.processInput(key);
         this.alert.processInput(key);
@@ -359,12 +362,15 @@ export class TrainScene extends BaseScene {
         this.alert = new AlertComponent(`Beep Beep Boop Beep! ... Hey there, Nook!...It's me! So what's the good word? You raking in the bells? ..uh-huh...Yeah. Ohh, that's rough! Brutal! Well, it's a crazy world! Anyway,as I was saying, I have someone here who wants to move to ${townName}! Oh, yeah, completely! But the poor thing still hasn't found a place to live it's sort of a tight spot...The kid's name? Why?..Oh. It's ${name}..umm, yeah. Yeah. today. So, think you can help out?...oh? Oh, really?..Uh-huh...I see. Oh, OK! Cool!...Yeah, I'll pass the word on..So we'll catch up later.Riight. Thanks a lot. See ya, Nook, my man! Bye..`, "Rover", "Red", 240);
         this.alert.Visible = true;
         this.alert.onComplete = () => {
+
             this.roverState = RoverStates.WalkingInside;
+            this.alert = new AlertComponent("","");
             this.dialogInProcess = false;
         }
     }
 
     protected roverMoneyDialog() {
+        this.dialogInProcess = true;
         this.dialog = new DialogComponent("OK I'm back miss me mya! Well, good news for you! It sounds like my bubby has some brand-new houses for sale, dirt cheap! The work's all done, but he hasn't been able to rent them. He wants to unload them, so he's willing to take a loss. You have money right!", "Rover", ["Oh, Yeah!", "Just a little..."]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {

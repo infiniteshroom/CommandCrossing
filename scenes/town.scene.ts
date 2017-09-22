@@ -49,6 +49,8 @@ export class TownScene extends BaseScene {
     draw(): void {
         super.draw();
 
+        this.screen.erase("down");
+
         process.stderr.write('\x1B[?25l');
         this.world.Town.renderViewPoint(this.world.Player.getAcre(), this.screen);
 
