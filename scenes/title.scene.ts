@@ -1,7 +1,7 @@
 import { NookScene } from './nook.scene';
 import { KKSliderScene } from './kkslider.scene';
 import { Music } from '../common/music';
-import { TownScene } from './town.scene';
+import { LoadGameScene } from './loadgame.scene';
 import { SceneManager } from '../common/scene/scenemanager';
 import { ACPlayerDirection } from './../world/acplayer';
 import { ACWorld } from './../world/acworld';
@@ -61,10 +61,7 @@ export class TitleScene extends BaseScene {
         else {
 
             if(this.world.hasSave()) {
-
-              this.world.loadGame();
-
-            SceneManager.set(new TownScene(this.screen, this.world));
+            SceneManager.set(new LoadGameScene(this.screen, this.world));
             }
 
             else {
