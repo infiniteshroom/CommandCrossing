@@ -1,4 +1,6 @@
 import * as charm from 'charm';
+import { Logger } from './../common/logger';
+
 export class AlertComponent {
     private pages: string[][];
     private text: string;
@@ -7,17 +9,24 @@ export class AlertComponent {
     private visible: boolean = true;
     private color:string = "red";
 
+    private textColor:any = null;
+
     private readonly maxLineLength: number = 41;
     private readonly linesPerPage: number = 2;
 
     public onComplete = null;
     
 
-    constructor(text: string, subject: string, color:string='red') {
+    constructor(text: string, subject: string, color:string='red', textColor=null) {
         this.text = text;
         this.subject = subject;
         this.pages = this.getPages();
+
         this.color = color;
+        this.pageNo = 0;
+
+        this.textColor = textColor;
+
     }
 
     get Visible():boolean {
@@ -77,7 +86,6 @@ export class AlertComponent {
                 lineCount++;
             }
         }
-
         return pages;
     }
 
@@ -101,16 +109,22 @@ export class AlertComponent {
 
     public draw(screen: charm.CharmInstance) {
 
+
+
         if (this.pageNo + 1 > this.getMaxPages()) {
-            this.visible = false;
 
             if(this.onComplete != null) {
                 this.onComplete();
             }
+            
+            this.visible = false;
         }
 
         if (this.visible) {
+
             let page = this.pages[this.pageNo];
+
+
 
 
             let lineOne = page[0] === undefined ? "" : page[0];
@@ -131,11 +145,29 @@ export class AlertComponent {
                 screen.write("----------\n");
             }
         
-            screen.write(`==============================================
-= ${lineOne}   =                               
-= ${lineTwo} ▼ =
-===============================================
-            `);
+            screen.write(`==============================================\n`);
+            screen.write("=");
+            if(this.textColor != null) {
+                screen.foreground(<charm.CharmColor>this.textColor);
+            }
+            
+            screen.write(` ${lineOne}  `);
+            screen.foreground("white");
+
+            screen.write("=\n");
+
+            screen.write("=");
+            if(this.textColor != null) {
+                screen.foreground(<charm.CharmColor>this.textColor);
+            }
+            
+            screen.write(` ${lineTwo}▼ `);
+            screen.foreground("white");
+            screen.write("=\n");
+
+
+            screen.write(`==============================================`);
+
         }
 
         else {

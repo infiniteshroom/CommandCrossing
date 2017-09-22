@@ -21,7 +21,7 @@ export class ACWorld {
 
         this.loadVillagers();
 
-        this.town.Name = "Nintendo Land";
+        this.town.Name = "";
         //this.player.name
         let item = new ACItem();
         item.Name = "Nooks Cranny";
