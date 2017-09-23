@@ -17,6 +17,14 @@ export enum ACTerrainType {
     Floor = 9,
 }
 
+export enum ACSeason {
+    Spring = 0,
+    Summer = 1,
+    Autumn = 2,
+    Winter = 3,
+}
+
+
 
 export class ACTown {
     protected name: string = '';
@@ -86,6 +94,8 @@ export class ACTown {
        // screen.write('═══════════════');
 
         let count = 0;
+        let season:ACSeason = this.getSeason();
+
 
         for (var i in this.mapTerrian[arce]) {
             if (count % 16 === 0) {
@@ -122,7 +132,18 @@ export class ACTown {
                 }
                 
                 else {
-                    screen.foreground("green");
+
+                    if(season == ACSeason.Summer || season == ACSeason.Spring) {
+                        screen.foreground("green");
+                    }
+
+                    else if(season == ACSeason.Winter) {
+                        screen.foreground("white");
+                    }
+
+                    else if(season == ACSeason.Autumn) {
+                        screen.foreground(210);
+                    }
                     screen.write("▒");
                     screen.foreground("white");
                 }
@@ -210,5 +231,28 @@ X - Dig   ? - Tree
     getShop(name:string) {
         return this.shops[name];
     }
+
+
+    getSeason():ACSeason {
+        let month:number = new Date().getMonth();
+
+
+        if(month == 11 || month == 0 || month == 1) {
+            return ACSeason.Winter;
+        }
+
+        if(month == 2 || month == 3 || month == 4) {
+            return ACSeason.Spring;
+        }
+
+        if(month == 5 || month == 6 || month == 7) {
+            return ACSeason.Summer;
+        }
+
+        if(month == 8 || month == 9 || month == 10) {
+            return ACSeason.Autumn;
+        }
+    }
+
 
 }

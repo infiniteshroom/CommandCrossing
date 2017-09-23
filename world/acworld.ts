@@ -1,12 +1,15 @@
 import { ACTree } from './actee';
 import { ACNPC } from './acnpc';
 import { ACItem, ACItemTypes } from './acitem';
+import { ACDigItem } from './acdigitem';
 import { ACPlayer } from './acplayer';
 import { ACTown, ACTerrainType} from './actown';
 
 import { Logger } from './../common/logger';
 
 import { SerializationHelper } from './../common/utils';
+
+
 
 export class ACWorld {
     protected town:ACTown = new ACTown();
@@ -59,6 +62,7 @@ export class ACWorld {
 
         this.town.MapNPC["A1"][5] = this.villagers["Bob"];
         this.town.MapNPC["A2"][3] = this.villagers["Alfonso"];
+
     }
 
     //loads in all villagers from json db
@@ -186,7 +190,31 @@ export class ACWorld {
                     case 'item':
 
                     if(data[acre][item] != undefined) {
-                        data[acre][item] = (<any>Object).assign(new ACItem(), data[acre][item]);
+
+                        if(data[acre][item].type == ACItemTypes.Tree) {
+                            data[acre][item] = (<any>Object).assign(new ACTree(), data[acre][item]);
+
+                            //set items for tree
+                            let items = data[acre][item].items;
+                            let itemsFixed:ACItem[] = [];
+
+                            for(var iItem in items) {
+                                itemsFixed.push(<ACItem>(<any>Object).assign(new ACItem(), items[iItem]));
+                            }
+
+                            data[acre][item].items = itemsFixed;
+
+
+                        }
+
+                        else if(data[acre][item].type == ACItemTypes.Dig) {
+                            data[acre][item] = (<any>Object).assign(new ACDigItem(), data[acre][item]);
+                            data[acre][item].item  = <ACItem>(<any>Object).assign(new ACItem(), data[acre][item].item);
+                        }
+
+                        else {
+                             data[acre][item] = (<any>Object).assign(new ACItem(), data[acre][item]);
+                        }
                     }
 
                     break;
@@ -228,7 +256,7 @@ export class ACWorld {
             town: {
                name: this.town.Name,
                terrian: this.town.MapTerrian,
-               items: this.town.MapItems,
+               items: this.fixMapArrays(this.town.MapItems, "item"),
                npcs: this.town.MapNPC,
                nooks: {
                    items: this.town.getShop("nooks").MapItems
