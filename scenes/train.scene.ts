@@ -17,19 +17,24 @@ export enum RoverStates {
     Walking = 0,
     Time = 1,
     Sit = 2,
-    Name = 3,
-    LikeName = 4,
-    OddName = 5,
-    BoyName = 6,
-    Town = 7,
-    WhyTown = 8,
-    Stay = 9,
-    NoPlace = 10,
-    WalkingOutside = 11,
-    TalkingToNook = 12,
-    WalkingInside = 13,
-    Money = 14,
-    Stopping = 15,
+    NoSit = 3,
+    Name = 4,
+    LikeName = 5,
+    OddName = 6,
+    GirlName = 7,
+    BoyName = 8,
+    Town = 9,
+    WhyTown = 10,
+    TownNotTelling = 11,
+    Stay = 12,
+    NoPlace = 13,
+    LeaveMeAlone = 14,
+    WalkingOutside = 15,
+    TalkingToNook = 16,
+    WalkingInside = 17,
+    Money = 18,
+    Stopping = 19,
+    AltStopping = 20,
 
 }
 
@@ -166,6 +171,10 @@ export class TrainScene extends BaseScene {
                     this.roverSitDialog();
                     break;
 
+                    case RoverStates.NoSit:
+                    this.roverNoSitDialog();
+                    break;
+
                     case RoverStates.Name:
                     this.roverNameDialog();
                     break;
@@ -178,6 +187,10 @@ export class TrainScene extends BaseScene {
                     this.roverBoyNameDialog();
                     break;
 
+                    case RoverStates.GirlName:
+                    this.roverGirlNameDialog();
+                    break;
+
                     case RoverStates.Town:
                     this.roverTownDialog();
                     break;
@@ -186,12 +199,20 @@ export class TrainScene extends BaseScene {
                     this.roverTownWhyDialog();
                     break;
 
+                    case RoverStates.TownNotTelling:
+                    this.roverTownNotTellingDialog();
+                    break;
+
                     case RoverStates.Stay:
                     this.roverStayDialog();
                     break;
 
                     case RoverStates.NoPlace:
                     this.roverNoPlaceDialog();
+                    break;
+
+                    case RoverStates.LeaveMeAlone:
+                    this.roverLeaveMeAloneDialog();
                     break;
 
                     case RoverStates.TalkingToNook:
@@ -204,6 +225,10 @@ export class TrainScene extends BaseScene {
                    
                     case RoverStates.Stopping:
                     this.roverStoppingDialog();
+                    break;
+
+                    case RoverStates.AltStopping:
+                    this.roverAltStoppingDialog();
                     break;
                 }
             }
@@ -255,10 +280,34 @@ export class TrainScene extends BaseScene {
         this.dialog = new DialogComponent("Say, thanks! you're too kind! Really, you're a big help... mya ha ha ha ha howr! So, you mind if I sit here? I promise I won't feel asleep, tumble onto you, and start drooling on your shirt!", "Rover", ["Please", "No Way!"]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            this.roverState = RoverStates.Name;
+
+            if(choice == 0) {
+                this.roverState = RoverStates.Name;
+            }
+
+            else {
+                this.roverState = RoverStates.NoSit;
+            }
             this.dialogInProcess = false;
         };
     }
+
+    protected roverNoSitDialog() {
+        this.alert = new AlertComponent("Wow, it's nice to know there are still plenty of rude people in the world. Know what? I'm going to sit here anyway. I don't even know why I'm bothering to ask this but what's your name?", "Rover");
+        this.alert.Visible = true;
+        this.alert.onComplete = (choice:number) => {
+            if(!this.entry.Visible && this.world.Player.Name == '') {
+                this.entry = new EntryComponent("Enter your name.", "👤");
+                this.entry.Visible = true;
+                this.entry.onSubmit = (text:string) => {
+                    this.world.Player.Name = text;
+                    this.roverState = RoverStates.LikeName;
+                    this.dialogInProcess = false;
+                }
+            }
+        };
+    }
+
 
     protected roverNameDialog() {
         //rover sits in seat :3
@@ -289,16 +338,49 @@ export class TrainScene extends BaseScene {
         this.dialog = new DialogComponent(`Hrmm... well...${name}...Now THAT is an odd name. Mya ha ha howr! Not that my opinion means much. What matters is, do YOU like the name ${name}?`, "Rover", ["Isn't it cool?", "Isn't it cute?"]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            this.roverState = RoverStates.BoyName;
+
+            if(choice == 0) {
+                this.roverState = RoverStates.BoyName;
+            }
+
+            else {
+                this.roverState = RoverStates.GirlName;
+            }
+
             this.dialogInProcess = false;
         }
+    }
+
+    protected roverGirlNameDialog() {
+        this.dialog = new DialogComponent("You're right! Of course! What was I thinking? I think it's a very cute name for a very cute girl. I, uh, I'm sorry I said it sounded funny. Honestly.", "Rover", ["You know it!", "I'm not a girl!"]);
+        this.dialog.Visible = true; 
+        this.dialog.onChoice = (choice:number) => {
+
+            if(choice == 0) {
+                this.roverState = RoverStates.Town;
+            }   
+
+            else {
+                this.roverState = RoverStates.BoyName;
+            } 
+
+            this.dialogInProcess = false;
+        };
+
     }
 
     protected roverBoyNameDialog() {
         this.dialog = new DialogComponent("Oh, I'm sorry! Did I say it was odd? It's not odd! It's a great name for a boy! Really it's uh...It's a really great name. Mya ha ha ha ha ha howr!", "Rover", ["You know it!", "I'm not a boy!"]);
         this.dialog.Visible = true; 
         this.dialog.onChoice = (choice:number) => {
-            this.roverState = RoverStates.Town;
+            if(choice == 0) {
+                this.roverState = RoverStates.Town;
+            }   
+
+            else {
+                this.roverState = RoverStates.GirlName;
+            } 
+            
             this.dialogInProcess = false;
         };
     }
@@ -320,17 +402,43 @@ export class TrainScene extends BaseScene {
         }
     }
 
+
+
     protected roverTownWhyDialog() {
         let townName = this.world.Town.Name;
         this.dialog = new DialogComponent(`Hey! I know that place! ${townName} is one of my favorite vacation spots! So what are you going to ${townName} for?`, "Rover", ["I'm moving", "What's it to ya?"]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            //TODO: what's it to ya.
-            this.roverState = RoverStates.Stay;
+            
+            if(choice == 0) {
+                this.roverState = RoverStates.Stay;
+            }
+
+            else {
+                this.roverState = RoverStates.TownNotTelling;
+            }
             this.dialogInProcess = false;
 
         }
         
+    }
+
+    protected roverTownNotTellingDialog() {
+        this.dialog = new DialogComponent("Fine, fon't tell me! Be like that! I don't care! I know you're moving, though. I can see it in your eyes! So what are you going to ${townName} for?","Rover", ["Don't know yet.", "Leave me alone!"]);
+        this.dialog.Visible = true;
+        this.dialog.onChoice = (choice:number) => {
+            //TODO: leave me alone!
+
+            if(choice == 0) {
+               this.roverState = RoverStates.NoPlace;
+            }
+
+            else {
+                this.roverState = RoverStates.LeaveMeAlone;
+            }
+
+            this.dialogInProcess = false;
+        }
     }
 
     protected roverStayDialog() {
@@ -338,7 +446,27 @@ export class TrainScene extends BaseScene {
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
             //TODO: leave me alone!
-            this.roverState = RoverStates.NoPlace;
+
+            if(choice == 0) {
+               this.roverState = RoverStates.NoPlace;
+            }
+
+            else {
+                this.roverState = RoverStates.LeaveMeAlone;
+            }
+            this.dialogInProcess = false;
+        }
+    }
+
+    protected roverLeaveMeAloneDialog() {
+        let townName = this.world.Town.Name;
+
+        
+        this.alert = new AlertComponent(`Don't...Don't tell me...You haven't found a place to live yer?!? Mya ha howr! Of course you have! Who..WHATT?!? You haven't?!? You can't just show up with no place to live! We'd better find you a pad, and fast! Oh! Of Course Duh! A good friend of mine runs the shop in ${townName}. Let me give him a ring! You wait right here!`, "Rover");
+        this.alert.Visible = true;
+        this.alert.onComplete = () => {
+            this.roverState = RoverStates.WalkingOutside;
+          
             this.dialogInProcess = false;
         }
     }
@@ -376,9 +504,27 @@ export class TrainScene extends BaseScene {
         this.dialog = new DialogComponent("OK I'm back miss me mya! Well, good news for you! It sounds like my bubby has some brand-new houses for sale, dirt cheap! The work's all done, but he hasn't been able to rent them. He wants to unload them, so he's willing to take a loss. You have money right!", "Rover", ["Oh, Yeah!", "Just a little..."]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            //TODO: Oh yeah!
-            this.roverState = RoverStates.Stopping;
+            if(choice == 0) {
+                this.roverState = RoverStates.AltStopping;
+            }
+
+            else {
+                this.roverState = RoverStates.Stopping;
+            }
+
             this.dialogInProcess = false;
+        }
+    }
+
+    protected roverAltStoppingDialog() {
+        let townName = this.world.Town.Name;
+
+
+        this.alert = new AlertComponent(`Then you'll be just fine! Wow..a brand-new house! Nothing like it in the world! Maybe I'll move in, too.. Oh! Looks like we're about to pull into ${townName}. Did I mention I love this place? Remember, things are never as bad as they seem. Honestly! Good luck and all that! Maybe we'll run into each other again sometime. Well good-bye :)`, "Rover");
+        this.alert.Visible = true;
+
+        this.alert.onComplete = () => {
+            SceneManager.set(new TownScene(this.screen, this.world));
         }
     }
 
