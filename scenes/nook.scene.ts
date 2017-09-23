@@ -30,6 +30,9 @@ export class NookScene extends BaseScene {
         this.screen = screen;
         this.world = world;
 
+        //On entering unquip items
+        this.world.Player.Equipment = undefined;
+
         this.nookShop = this.world.Town.getShop('nooks');
 
         //check for events
