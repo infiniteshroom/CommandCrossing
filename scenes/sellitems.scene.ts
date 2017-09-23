@@ -207,7 +207,7 @@ export class SellItemsScene extends BaseScene {
     }
 
     private getOptionsForItem(item: ACItem): string[] {
-        let options = ["Sell", "Cancel"];
+        let options = ["Sell", "View Catalog", "Cancel"];
         return options;
     }
 

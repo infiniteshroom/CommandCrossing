@@ -86,6 +86,8 @@ export class LoadGameScene extends BaseScene {
                     this.alert.onComplete = () => {
                         this.world.loadGame();
                         SceneManager.set(new TownScene(this.screen, this.world));
+                            Music.stopAll();
+                            Music.playOverWorldMusic(new Date().getHours().toString());
                     }
                 break;
 

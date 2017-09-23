@@ -524,6 +524,10 @@ export class TrainScene extends BaseScene {
         this.alert.Visible = true;
 
         this.alert.onComplete = () => {
+
+            Music.stopAll();
+            Music.playOverWorldMusic(new Date().getHours().toString());
+
             SceneManager.set(new TownScene(this.screen, this.world));
         }
     }
@@ -535,6 +539,10 @@ export class TrainScene extends BaseScene {
         this.alert.Visible = true;
 
         this.alert.onComplete = () => {
+
+            Music.stopAll();
+            Music.playOverWorldMusic(new Date().getHours().toString());
+
             SceneManager.set(new TownScene(this.screen, this.world));
         }
     }

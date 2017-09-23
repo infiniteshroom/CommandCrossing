@@ -197,7 +197,7 @@ export class TownScene extends BaseScene {
                 }
     
 
-                else if(item.Type != ACItemTypes.Rock) {
+                else if(item.Type != ACItemTypes.Rock && item.Type != ACItemTypes.Dig && item.Type != ACItemTypes.Hole && item.Type != ACItemTypes.Stump) {
 
                     let returnCode = this.world.Player.pickup(this.world.Town.MapItems);
 
@@ -229,10 +229,7 @@ export class TownScene extends BaseScene {
 
     music(player: Music) {
 
-        super.music(player);
-        Music.stopAll();
-
-        Music.playOverWorldMusic(new Date().getHours().toString());
+        //super.music(player);
 
     }
 

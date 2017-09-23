@@ -186,6 +186,11 @@ export class NookScene extends BaseScene {
 
                 //if underneath exit tile - load back up town
                 if (this.nookShop.checkTile(this.nookShop.PlayerX, this.nookShop.PlayerY) == ACShopTiles.Exit) {
+
+                    //if leaving play overworld theme
+                    Music.stopAll();
+                    Music.playOverWorldMusic(new Date().getHours().toString());
+
                     SceneManager.set(new TownScene(this.screen, this.world));
                 }
             }
