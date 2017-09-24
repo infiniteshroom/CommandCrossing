@@ -6,11 +6,13 @@ import { ACNPC } from '../world/acnpc';
 import { ACItem, ACItemTypes } from '../world/acitem';
 import { Music } from '../common/music';
 import { AlertComponent } from '../component/alert.component';
+import { HudComponent } from '../component/hud.component';
 import { PocketsScene } from './pockets.scene';
 import { SceneManager } from '../common/scene/scenemanager';
 import { ACPlayerDirection } from './../world/acplayer';
 import { ACWorld } from './../world/acworld';
 import { BaseScene } from './../common/scene/base.scene';
+import { PlayerComponent } from './../component/player.component';
 
 import * as charm from 'charm';
 
@@ -20,6 +22,8 @@ export class TownScene extends BaseScene {
     tick = 0;
     alert: AlertComponent = null;
     dialog: DialogComponent = null;
+    hud: HudComponent = null;
+    player: PlayerComponent = null;
 
 
     constructor(screen: charm.CharmInstance, world: ACWorld) {
@@ -30,21 +34,11 @@ export class TownScene extends BaseScene {
         this.dialog = new DialogComponent("", "");
         this.dialog.Visible = false;
         this.alert.Visible = false;
+
+        this.hud = new HudComponent(this.world);
+        this.player = new PlayerComponent(this.world);
     };
 
-    private renderHud(): string {
-        let dayNo = ("0" + (new Date().getDate())).slice(-2);
-        let monthNo = ("0" + (new Date().getMonth())).slice(-2);
-
-        let hourNo = ("0" + (new Date().getHours())).slice(-2);
-        let minuteNo = ("0" + (new Date().getMinutes())).slice(-2);
-
-        let time = "pm";
-
-        let acre = this.world.Player.getAcre();
-
-        return `\n(${dayNo}).(${monthNo}) (${hourNo}):(${minuteNo}) ${time} (${acre})`;
-    }
 
     draw(): void {
         super.draw();
@@ -57,12 +51,8 @@ export class TownScene extends BaseScene {
         this.alert.draw(this.screen);
         this.dialog.draw(this.screen);
 
-        this.screen.write(this.renderHud());
-
-        this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY);
-        this.screen.write("$");
-
-        this.renderTool();
+        this.hud.draw(this.screen);
+        this.player.draw(this.screen);
 
 
         this.tick++;
@@ -73,34 +63,10 @@ export class TownScene extends BaseScene {
         this.alert.processInput(key);
         this.dialog.processInput(key);
 
+
+
         if (!this.alert.Visible && !this.dialog.Visible) {
-            //move up
-            if (key == '\u001B\u005B\u0041') {
-                this.world.Player.Direction = ACPlayerDirection.North;
-                this.world.Player.move(this.world.Town.MapItems, this.world.Town.MapNPC);
-                //player.playEffect("/home/mark/Documents/sites/commandCrossing/music/effects/walking.wav");
-            }
-
-            //move right
-            if (key == '\u001B\u005B\u0043') {
-                this.world.Player.Direction = ACPlayerDirection.East;
-                this.world.Player.move(this.world.Town.MapItems, this.world.Town.MapNPC)
-                //player.playEffect("/home/mark/Documents/sites/commandCrossing/music/effects/walking.wav");
-            }
-
-            //move down
-            if (key == '\u001B\u005B\u0042') {
-                this.world.Player.Direction = ACPlayerDirection.South;
-                this.world.Player.move(this.world.Town.MapItems, this.world.Town.MapNPC)
-                //player.playEffect("/home/mark/Documents/sites/commandCrossing/music/effects/walking.wav");
-            }
-
-            //move left
-            if (key == '\u001B\u005B\u0044') {
-                this.world.Player.Direction = ACPlayerDirection.West;
-                this.world.Player.move(this.world.Town.MapItems, this.world.Town.MapNPC)
-                //player.playEffect("/home/mark/Documents/sites/commandCrossing/music/effects/walking.wav");
-            }
+            this.player.processInput(key);
 
             if(key.charCodeAt(0) == 13) {
                 
@@ -234,61 +200,6 @@ export class TownScene extends BaseScene {
     }
 
 
-    renderTool() {
-
-        let playerTool: ACItem = this.world.Player.Equipment === undefined ? new ACItem() : this.world.Player.Equipment;
-
-        let tool = '';
-        let direction = this.world.Player.Direction;
-
-        if (playerTool.Type == ACItemTypes.Shovel) {
-            if (direction == ACPlayerDirection.North) {
-                tool = '^';
-                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY - 1);
-            }
-
-            if (direction == ACPlayerDirection.East) {
-                tool = '>';
-                this.screen.position(<number>this.world.Player.AcreSquareX + 1, this.world.Player.AcreSquareY);
-            }
-
-            if (direction == ACPlayerDirection.South) {
-                tool = 'v'
-                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY + 1);
-            }
-
-            if (direction == ACPlayerDirection.West) {
-                tool = '<';
-                this.screen.position(<number>this.world.Player.AcreSquareX - 1, this.world.Player.AcreSquareY);
-            }
-        }
-
-
-        if (playerTool.Type == ACItemTypes.Axe) {
-            if (direction == ACPlayerDirection.North) {
-                tool = '▲';
-                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY - 1);
-            }
-
-            if (direction == ACPlayerDirection.East) {
-                tool = '►';
-                this.screen.position(<number>this.world.Player.AcreSquareX + 1, this.world.Player.AcreSquareY);
-            }
-
-            if (direction == ACPlayerDirection.South) {
-                tool = '▼'
-                this.screen.position(<number>this.world.Player.AcreSquareX, this.world.Player.AcreSquareY + 1);
-            }
-
-            if (direction == ACPlayerDirection.West) {
-                tool = '◀';
-                this.screen.position(<number>this.world.Player.AcreSquareX - 1, this.world.Player.AcreSquareY);
-            }
-        }
-
-        //TODO: rod, net
-
-        this.screen.write(tool);
-    }
+ 
 
 }
