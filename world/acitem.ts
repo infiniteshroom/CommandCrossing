@@ -31,6 +31,7 @@ export enum ACItemTypes
     Nooks = 27,
     Rock = 28,
     Stump = 30,
+    BBS = 31,
 }
 
 export class ACItem {
@@ -66,6 +67,7 @@ export class ACItem {
         "Apple": "☌",
         "Nooks": "☙",
         "Rock": "●",
+        "BBS": "□",
         "Stump": "⛞",
         "Shovel": "⚒",
         "FishingRod": "⚒",

@@ -1,3 +1,4 @@
+import { ACBBSItem } from './acbbsitem';
 import { ACNooks } from './acnooks';
 import { ACShop } from './acshop';
 import { ACPlayerDirection } from './acplayer';
@@ -32,6 +33,7 @@ export class ACTown {
     protected mapItems: any = {};
     protected mapTerrian: any = {};
     protected mapNPC: any = {};
+    protected bbsItems:ACBBSItem[] = [];
 
     protected shops:ACShop[] = [];
 
@@ -86,6 +88,20 @@ export class ACTown {
         }
 
         this.shops['nooks'] = new ACNooks();
+
+
+        let item:ACBBSItem = new ACBBSItem();
+        item.PlayerName = "Mark";
+        item.CreatedOn = new Date();
+        item.Message = "Hello world welcome to my new entry on the bullet board";
+        
+        let item2:ACBBSItem = new ACBBSItem();
+        item2.Message = "Hello world 2";
+        item2.PlayerName = "Mark";
+        item2.CreatedOn = new Date();
+        this.bbsItems.push(item);
+        this.bbsItems.push(item2);
+
     }
 
     public renderViewPoint(arce: string, screen: charm.CharmInstance) {
@@ -228,6 +244,15 @@ X - Dig   ? - Tree
     set MapTerrian(value:any) {
         this.mapTerrian = value;
     }
+
+    get BBSItems():ACBBSItem[] {
+        return this.bbsItems;
+    }
+
+    set BBSItems(value:ACBBSItem[]) {
+        this.bbsItems = value;
+    }
+
     getShop(name:string) {
         return this.shops[name];
     }

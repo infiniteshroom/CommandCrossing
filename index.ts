@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { BBSScene } from './scenes/bbs.scene';
 
 import { KKSliderScene } from './scenes/kkslider.scene';
 

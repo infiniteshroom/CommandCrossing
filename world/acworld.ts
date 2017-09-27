@@ -57,8 +57,13 @@ export class ACWorld {
         let rockItem = new ACItem();
         rockItem.Type = ACItemTypes.Rock;
 
+        let bbsitem = new ACItem();
+        bbsitem.Type = ACItemTypes.BBS;
+        
+
         this.town.MapItems["A1"][35] = treeItem;
         this.town.MapItems["A1"][70] = rockItem;
+        this.town.MapItems["A2"][20] = bbsitem;
 
         this.town.MapNPC["A1"][5] = this.villagers["Bob"];
         this.town.MapNPC["A2"][3] = this.villagers["Alfonso"];
@@ -178,7 +183,7 @@ export class ACWorld {
     }
 
     /*
-        The following functions are used to fix issue with typescript parsed json not
+        The following functions are used to fix issues with typescript parsed json not
         retaining class information
     */
     fixMapArrays(data:any, type:string) {
