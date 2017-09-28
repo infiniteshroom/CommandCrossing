@@ -1,3 +1,4 @@
+import { ACBBSItem } from './acbbsitem';
 import { ACTree } from './actee';
 import { ACNPC } from './acnpc';
 import { ACItem, ACItemTypes } from './acitem';
@@ -172,6 +173,7 @@ export class ACWorld {
 
 
         this.town.MapNPC = this.fixMapArrays(saveData.town.npcs, "npc");
+        this.town.BBSItems = this.fixBBSArray(saveData.town.bbs);
 
         let nooks:any = this.town.getShop("nooks");
         nooks.MapItems = this.fixItemsArray(saveData.town.nooks.items);
@@ -239,6 +241,20 @@ export class ACWorld {
         return data;
     }
 
+    fixBBSArray(data:any) {
+        for(let i in data) {
+
+            if(data[i] == "null" || data[i] === null) {
+                data[i] = undefined;
+            }
+
+            if(data[i] != undefined) { 
+                data[i] = (<any>Object).assign(new ACBBSItem(), data[i]);
+            }
+        }
+        
+        return data;
+    }
     fixItemsArray(data:any) {
         for(let i in data) {
 
@@ -263,6 +279,7 @@ export class ACWorld {
                terrian: this.town.MapTerrian,
                items: this.fixMapArrays(this.town.MapItems, "item"),
                npcs: this.town.MapNPC,
+               bbs: this.fixBBSArray(this.town.BBSItems),
                nooks: {
                    items: this.town.getShop("nooks").MapItems
                }

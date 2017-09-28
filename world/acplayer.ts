@@ -491,7 +491,7 @@ export class ACPlayer {
         if (item != null) {
             if (item.Type == ACItemTypes.Hole || item.Type == ACItemTypes.Nooks 
                 || item.Type == ACItemTypes.Tree || item.Type == ACItemTypes.Rock
-                || item.Type == ACItemTypes.Stump)  {
+                || item.Type == ACItemTypes.Stump || item.Type == ACItemTypes.BBS)  {
                 return;
             }
         }

@@ -48,6 +48,8 @@ export class BBSScene extends BaseScene {
     draw(): void {
         super.draw();
 
+        process.stderr.write('\x1B[?25l');
+        
         if(this.mode == BBSMode.create) {
             this.drawCreate();
             this.dialog.draw(this.screen);
