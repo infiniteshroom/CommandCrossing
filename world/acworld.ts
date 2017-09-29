@@ -75,7 +75,7 @@ export class ACWorld {
     private loadVillagers() {
         let fs = require('fs');
 
-        let data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/animals.json');
+        let data = fs.readFileSync(__dirname + '/../data/animals.json');
 
         let villagers = JSON.parse(data);
 
@@ -144,7 +144,7 @@ export class ACWorld {
     hasSave() {
         var fs = require('fs');
 
-        let saveData = fs.readFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json");
+        let saveData = fs.readFileSync(__dirname + "/../data/saves/data.json");
 
         saveData = JSON.parse(saveData);
 
@@ -160,7 +160,7 @@ export class ACWorld {
         
         //TODO: support more than one player...
         var fs = require('fs');
-        let saveData = fs.readFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json");
+        let saveData = fs.readFileSync(__dirname + "/../data/saves/data.json");
 
         saveData = JSON.parse(saveData);
 
@@ -249,6 +249,7 @@ export class ACWorld {
             }
 
             if(data[i] != undefined) { 
+                data[i].createdOn = (<any>Object).assign(new Date(), data[i].createdOn);
                 data[i] = (<any>Object).assign(new ACBBSItem(), data[i]);
             }
         }
@@ -296,6 +297,6 @@ export class ACWorld {
         }
 
         var fs = require('fs');
-        fs.writeFileSync("/home/mark/Documents/sites/commandCrossing/data/saves/data.json", JSON.stringify(saveData));
+        fs.writeFileSync(__dirname + "/../data/saves/data.json", JSON.stringify(saveData));
     }
 }

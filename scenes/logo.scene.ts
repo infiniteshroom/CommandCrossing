@@ -28,7 +28,7 @@ export class LogoScene extends BaseScene {
 
         var fs = require('fs');
         
-        var data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/nintendo');
+        var data = fs.readFileSync(__dirname + '/../data/nintendo');
 
         this.screen.foreground("blue");
         this.screen.write(data);

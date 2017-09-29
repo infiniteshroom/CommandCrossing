@@ -15,7 +15,7 @@ export class Dialog {
 
         var fs = require('fs');
         
-        let data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/text/' + this.name + ".json");
+        let data = fs.readFileSync(__dirname + '/../data/text/' + this.name + ".json");
         this.dialog = JSON.parse(data);
     }
 

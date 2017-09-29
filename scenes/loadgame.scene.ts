@@ -47,7 +47,7 @@ export class LoadGameScene extends BaseScene {
 
         var fs = require('fs');
         
-        var data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/rover');
+        var data = fs.readFileSync(__dirname + '/../data/rover');
 
         this.screen.foreground("blue");
         this.screen.write(data);
@@ -117,7 +117,7 @@ export class LoadGameScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/load.mp3");
+        Music.playMusic(__dirname + "/../music/load.mp3");
 
     }
 

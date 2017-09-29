@@ -9,7 +9,7 @@ export class Music {
     public static playOverWorldMusic(time:string) {
 
         this.stopAll();
-        this.playMusic("/home/mark/Documents/sites/commandCrossing/music/overworld/"+ time +".mp3");
+        this.playMusic(__dirname + "/../music/overworld/"+ time +".mp3");
     
     }
 

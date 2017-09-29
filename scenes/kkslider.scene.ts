@@ -32,7 +32,7 @@ export class KKSliderScene extends BaseScene {
 
         var fs = require('fs');
         
-        var data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/kk');
+        var data = fs.readFileSync(__dirname + '/../data/kk');
 
         this.screen.write(data);
 
@@ -84,7 +84,7 @@ export class KKSliderScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/kk-intro.mp3");
+        Music.playMusic(__dirname + "/../music/kk-intro.mp3");
 
     }
 

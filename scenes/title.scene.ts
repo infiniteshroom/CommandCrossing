@@ -29,7 +29,7 @@ export class TitleScene extends BaseScene {
 
         var fs = require('fs');
         
-        var data = fs.readFileSync('/home/mark/Documents/sites/commandCrossing/data/logo');
+        var data = fs.readFileSync(__dirname + '/../data/logo');
 
         this.screen.write(data);
         this.screen.write(`
@@ -76,7 +76,7 @@ export class TitleScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/title.mp3");
+        Music.playMusic(__dirname + "/../music/title.mp3");
 
     }
 

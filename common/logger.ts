@@ -2,7 +2,7 @@ var fs = require('fs');
 
 export class Logger {
 	
-	folder:string = '/home/mark/Documents/sites/commandCrossing/data/logs/';
+	folder:string = __dirname + '/../data/logs/';
 	constructor(folder:string='') {
 
 		folder = folder == '' ? this.folder : folder;
