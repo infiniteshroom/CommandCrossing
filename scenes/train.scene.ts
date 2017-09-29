@@ -258,7 +258,7 @@ export class TrainScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/train.mp3");
+        Music.playMusic(__dirname + "/../music/train.mp3");
 
     }
 

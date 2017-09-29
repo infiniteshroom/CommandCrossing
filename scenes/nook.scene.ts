@@ -276,7 +276,7 @@ export class NookScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/nook.mp3");
+        Music.playMusic(__dirname + "/../music/nook.mp3");
 
     }
 

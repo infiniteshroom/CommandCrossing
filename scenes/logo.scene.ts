@@ -60,7 +60,7 @@ export class LogoScene extends BaseScene {
         super.music(player);
         Music.stopAll();
 
-        Music.playMusic("/home/mark/Documents/sites/commandCrossing/music/nintendo.mp3");
+        Music.playMusic(__dirname + "/../music/nintendo.mp3");
 
     }
 
