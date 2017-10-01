@@ -55,15 +55,15 @@ export class ACWorld {
         let treeItem = new ACTree();
         treeItem.Items = [dummy, dummy2, dummy3];
 
-        let rockItem = new ACItem();
-        rockItem.Type = ACItemTypes.Rock;
+        let houseItem = new ACItem();
+        houseItem.Type = ACItemTypes.House;
 
         let bbsitem = new ACItem();
         bbsitem.Type = ACItemTypes.BBS;
         
 
         this.town.MapItems["A1"][35] = treeItem;
-        this.town.MapItems["A1"][70] = rockItem;
+        this.town.MapItems["A1"][70] = houseItem;
         this.town.MapItems["A2"][20] = bbsitem;
 
         this.town.MapNPC["A1"][5] = this.villagers["Bob"];
@@ -145,7 +145,6 @@ export class ACWorld {
         var fs = require('fs');
 
         let saveData = fs.readFileSync(__dirname + "/../data/saves/data.json");
-
         saveData = JSON.parse(saveData);
 
         if(saveData.town.name != undefined) {
@@ -181,6 +180,7 @@ export class ACWorld {
         this.player.Name = player.name;
         this.player.Bells = player.bells;
         this.player.Items = this.fixItemsArray(player.items);
+        this.player.House.MapItems = this.fixItemsArray(player.house.items);
 
     }
 
@@ -292,6 +292,9 @@ export class ACWorld {
                     name: this.Player.Name,
                     bells: this.Player.Bells,
                     items: this.Player.getPockets(),
+                    house: {
+                        items: this.fixItemsArray(this.player.House.MapItems),
+                    }
                 }
             ],
         }

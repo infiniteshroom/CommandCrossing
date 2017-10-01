@@ -1,7 +1,7 @@
 import { ACNPC } from './acnpc';
-import { ACPlayerDirection } from './acplayer';
+import { ACPlayer, ACPlayerDirection } from './acplayer';
 import { ACTerrainType } from './actown';
-import { ACItem } from './acitem';
+import { ACItem, ACItemTypes } from './acitem';
 
 import * as charm from 'charm';
 
@@ -16,8 +16,6 @@ export class ACHouse {
     protected mapItems: any = {};
     protected mapTerrian: any = {};
     protected mapNPC: any = {};
-    protected openingTime: Date;
-    protected closingTime: Date;
 
     protected readonly MAXTILES = 112;
 
@@ -39,11 +37,29 @@ export class ACHouse {
         this.mapItems.fill(null, 0, this.MAXTILES);
         this.mapNPC.fill(null, 0, this.MAXTILES);
         this.mapTerrian.fill(null, 0, this.MAXTILES);
+
+            //set player/Nooks position 
+            this.playerX = 12;
+            this.playerY = 7;
+            this.Direction = ACPlayerDirection.North;
+
+
+        this.mapTerrian = [
+            ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Exit,ACShopTiles.Exit,ACShopTiles.Exit,ACShopTiles.Exit,ACShopTiles.Exit,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Floor,ACShopTiles.Wall,
+            ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,ACShopTiles.Wall,
+        ];
+
     }
 
     get MapItems():ACItem[] {
         return this.mapItems;
     }
+
 
 
     get PlayerX():number {
@@ -76,31 +92,103 @@ export class ACHouse {
         return tile;
     }
 
-    public checkItem(x: number, y: number, direction: ACPlayerDirection) {
-        if (direction == ACPlayerDirection.East) {
+    public pickup(player:ACPlayer): number {
+        
+        let x = this.playerX;
+        let y = this.playerY;
+        
+        let direction = this.direction;
+
+        let item: ACItem = this.checkItem(x, y, direction);
+
+        if (item != null) {
+
+            //add to pockets
+            let result = player.addToPockets(item);
+
+            //If underfoot remove item, else check square the player is moving to.
+            if (this.mapItems[((y - 2) * 16) + (x - 1)] != null) {
+                this.mapItems[((y - 2) * 16) + (x - 1)] = null;
+
+            }
+
+            else {
+
+                if (this.Direction == ACPlayerDirection.East) {
+
+                    x++;
+                
+                }
+
+                else if (this.Direction == ACPlayerDirection.North) {
+                    y--;
+                }
+
+                else if (this.Direction == ACPlayerDirection.South) {
+                    y++;
+                }
+
+                else if (this.Direction == ACPlayerDirection.West) {
+                    x--;
+                }
+
+
+                if (this.mapItems[((y - 2) * 16) + (x - 1)] != null) {
+                    return this.mapItems[((y - 2) * 16) + (x - 1)] = null;
+
+                }
+
+                return result;
+
+            }
+        }
+
+        else {
+            return -2;
+        }
+            }
+
+    public dropItem(item:ACItem) {
+
+        let x = this.playerX;
+        let y = this.playerY;
+    
+        if (this.Direction == ACPlayerDirection.East) {
 
             x++;
         }
 
-        else if (direction == ACPlayerDirection.North) {
+        else if (this.Direction == ACPlayerDirection.North) {
             y--;
         }
 
-        else if (direction == ACPlayerDirection.South) {
+        else if (this.Direction == ACPlayerDirection.South) {
             y++;
         }
 
-        else if (direction == ACPlayerDirection.West) {
+        else if (this.Direction == ACPlayerDirection.West) {
             x--;
         }
 
-
-        let tile = this.mapItems[((y - 2) * 16) + (x - 1)];
-        return tile;
+        this.mapItems[((y - 2) * 16) + (x - 1)] = item.__clone();
     }
 
-/*
-    public checkNpc(x: number, y: number, direction: ACPlayerDirection) {
+    public moveItem(x:number, y:number, newX:number, newY:number) {
+        let item = this.mapItems[((y - 2) * 16) + (x - 1)];
+
+        item = item.__clone();
+
+        this.mapItems[((y - 2) * 16) + (x - 1)] = null;        
+        
+        this.mapItems[((newY - 2) * 16) + (newX - 1)] = item;    
+
+    }
+
+    public addItem(x:number, y:number, item:ACItem) {
+        this.mapItems[((y - 2) * 16) + (x - 1)] = item;
+    }
+
+    public checkItem(x: number, y: number, direction: ACPlayerDirection, remove:boolean=false) {
         if (direction == ACPlayerDirection.East) {
 
             x++;
@@ -118,17 +206,29 @@ export class ACHouse {
             x--;
         }
 
+        let tile:ACItem = this.mapItems[((y - 2) * 16) + (x - 1)]; 
 
-       return x == this.npcX && y == this.npcY;
-    }*/
+        if(remove && tile != null) { 
+            this.mapItems[((y - 2) * 16) + (x - 1)] = null;
 
-    public playerMove() {
+            let newTile = tile.__clone();
+            return newTile;
+        }
+
+        else {
+            return tile;
+        }
+    }
+
+
+    public playerMove(checks:boolean = true) {
         //move up
-
-    //    if(this.checkNpc(this.playerX, this.playerY, this.direction)) {
-      //     return;
-       // }
-
+        let item: ACItem = this.checkItem(this.playerX, this.playerY, this.direction);
+       
+        if(item != null && checks) {
+            return;
+        }
+        
         if (this.Direction == ACPlayerDirection.North) {
             this.PlayerY--;
         }

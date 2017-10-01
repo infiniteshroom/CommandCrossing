@@ -153,6 +153,12 @@ export class ACShop {
            return;
         }
 
+        let item: ACItem = this.checkItem(this.playerX, this.playerY, this.direction);
+
+        if(item != null) {
+            return;
+        }
+
         if (this.Direction == ACPlayerDirection.North) {
             this.PlayerY--;
         }

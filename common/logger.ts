@@ -8,10 +8,6 @@ export class Logger {
 		folder = folder == '' ? this.folder : folder;
 
 		this.folder = folder;
-
-	//	if(!fs.existsSync(this.getLogName())) {
-		//	fs.writeSync(this.getLogName(), "");
-	//	}
 	}
 
 	writeToLog(type:string, message:string):void {

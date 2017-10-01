@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+
+import { PlayerHouseScene } from './scenes/playerhouse.scene';
+
 import { BBSScene } from './scenes/bbs.scene';
 
 import { KKSliderScene } from './scenes/kkslider.scene';

@@ -1,3 +1,4 @@
+import { PlayerHouseScene } from './playerhouse.scene';
 import { BBSScene } from './bbs.scene';
 import { ACDigItem } from '../world/acdigitem';
 import { ACTree } from '../world/actee';
@@ -120,6 +121,10 @@ export class TownScene extends BaseScene {
                     SceneManager.set(new NookScene(this.screen, this.world));
                 }
 
+                else if(item.Type == ACItemTypes.House) {
+                    //TODO: tweak this...
+                    SceneManager.set(new PlayerHouseScene(this.screen, this.world));
+                }
                 else if(item.Type == ACItemTypes.BBS) {
                     SceneManager.set(new BBSScene(this.screen, this.world));
                 }

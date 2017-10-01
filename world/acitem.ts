@@ -69,7 +69,7 @@ export class ACItem {
         "Nooks": "☙",
         "Rock": "●",
         "BBS": "□",
-        "House": "🏠",
+        "House": "⌂",
         "Stump": "⛞",
         "Shovel": "⚒",
         "FishingRod": "⚒",

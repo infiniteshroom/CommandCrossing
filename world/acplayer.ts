@@ -1,3 +1,4 @@
+import { ACHouse } from './achouse';
 import { ACNooks } from './acnooks';
 import { ACNPC } from './acnpc';
 import { ACDigItem } from './acdigitem';
@@ -36,6 +37,8 @@ export class ACPlayer {
     protected readonly maxCols = 16;
     protected readonly maxRows = 16;
 
+    protected house:ACHouse = new ACHouse();
+
     constructor() {
         this.acreLetter = 1;
         this.acreNumber = 1;
@@ -66,6 +69,13 @@ export class ACPlayer {
         return this.items;
     }
 
+    get House():ACHouse {
+        return this.house;
+    }
+
+    set House(value:ACHouse) {
+        this.house = value;
+    }
     get Bells(): number {
         return this.bells;
     }

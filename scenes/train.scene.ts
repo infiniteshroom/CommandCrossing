@@ -314,7 +314,6 @@ export class TrainScene extends BaseScene {
         this.roverY--;
 
 
-        //TODO: no way!
         this.alert = new AlertComponent("Thanks again! It sure is nice meeting friendly folk on the train...You aren't a psycho right? Just kidding! Say by the way...What's your name?", "Rover");
         this.alert.Visible = true;
         this.alert.onComplete = () => {
@@ -427,7 +426,6 @@ export class TrainScene extends BaseScene {
         this.dialog = new DialogComponent("Fine, fon't tell me! Be like that! I don't care! I know you're moving, though. I can see it in your eyes! So what are you going to ${townName} for?","Rover", ["Don't know yet.", "Leave me alone!"]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            //TODO: leave me alone!
 
             if(choice == 0) {
                this.roverState = RoverStates.NoPlace;
@@ -445,8 +443,7 @@ export class TrainScene extends BaseScene {
         this.dialog = new DialogComponent("Hrmm...Moving, huh? I hate moving. Pack boxes, unpack boxes. It never ends. Say! Where's your new place?","Rover", ["Don't know yet.", "Leave me alone!"]);
         this.dialog.Visible = true;
         this.dialog.onChoice = (choice:number) => {
-            //TODO: leave me alone!
-
+            
             if(choice == 0) {
                this.roverState = RoverStates.NoPlace;
             }
