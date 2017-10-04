@@ -7,8 +7,6 @@ import { ACItem } from './acitem';
 import * as charm from 'charm';
 
 export enum ACTerrainType {
-    NormalTree = 1,
-    FruitTree = 2,
     Grass = 3,
     Beach = 4,
     River = 5,
@@ -38,55 +36,6 @@ export class ACTown {
     protected shops:ACShop[] = [];
 
     constructor() {
-        let arces = [
-            "A1", "A2", "A3", "A4", "A5",
-            "B1", "B2", "B3", "B4", "B5",
-            "C1", "C2", "C3", "C4", "C5",
-            "D1", "D2", "D3", "D4", "D5",
-            "E1", "E2", "E3", "E4", "E5",
-            "F1", "F2", "F3", "F4", "F5"
-        ];
-
-        for (var i in arces) {
-            let arce = arces[i];
-
-            this.mapItems[arce] = new Array(256);
-            this.mapItems[arce].fill(null, 0, 256);
-
-            this.mapNPC[arce] = new Array(256);
-            this.mapItems[arce].fill(null, 0, 256);
-
-
-            this.mapTerrian[arce] = new Array(256);
-
-            if(parseInt(i) > 25) {
-                this.mapTerrian[arce] = [
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,ACTerrainType.Grass,
-                    ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,
-                    ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,ACTerrainType.Beach,
-                    ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,
-                    ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,ACTerrainType.River,
-                ]
-              //  this.mapTerrian[arce].fill(ACTerrainType.Beach, 192, 223);
-               // this.mapTerrian[arce].fill(ACTerrainType.River, 224, 255);
-            }
-
-            else {
-                this.mapTerrian[arce].fill(ACTerrainType.Grass, 0, 256);
-            }
-        }
-
         this.shops['nooks'] = new ACNooks();
 
 
@@ -114,7 +63,8 @@ export class ACTown {
 
 
         for (var i in this.mapTerrian[arce]) {
-            if (count % 16 === 0) {
+
+            if (count % 16 === 0 && count != 0) {
                 screen.write("\n");
             }
 
@@ -188,7 +138,7 @@ X - Dig   ? - Tree
         for(let i = 0; i < items.length; i++) {
             if(i == 0) {
                 //drop directly in front of tree
-                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+                this.mapItems[acre][((y - 1) * 16) + (x - 1)] = items[i]; 
                 
             }
 
@@ -196,14 +146,14 @@ X - Dig   ? - Tree
                 //drop directly to right of tree
                 x += 2;
                 y -= 1;
-                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+                this.mapItems[acre][((y - 1) * 16) + (x - 1)] = items[i]; 
             }
 
             if(i == 2) {
                 //drop directly left of tree
                 x -= 2;
                 y -= 1;
-                this.mapItems[acre][((y - 2) * 16) + (x - 1)] = items[i]; 
+                this.mapItems[acre][((y - 1) * 16) + (x - 1)] = items[i]; 
                 
             }
         }

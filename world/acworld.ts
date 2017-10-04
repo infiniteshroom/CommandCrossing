@@ -1,3 +1,4 @@
+import { ACWorldGenerator } from './acworldgenerator';
 import { ACBBSItem } from './acbbsitem';
 import { ACTree } from './actee';
 import { ACNPC } from './acnpc';
@@ -23,51 +24,23 @@ export class ACWorld {
 
     protected logger:Logger = new Logger();
 
-    public load():void {
 
+    public generate(): void {
+        let worldGenerator:ACWorldGenerator = new ACWorldGenerator(this);
+        worldGenerator.generate();
+
+        //TODO: function to generate villagers for town
+       // this.town.MapNPC["A1"][5] = this.villagers["Bob"];
+        //this.town.MapNPC["A2"][3] = this.villagers["Alfonso"];
+    }
+
+    public load():void {
         this.loadVillagers();
 
         this.town.Name = "";
         //this.player.name
-        let item = new ACItem();
-        item.Name = "Nooks Cranny";
-        item.Type = ACItemTypes.Nooks;
-        this.town.MapItems["A2"][13] = item;
 
 
-        let dummy:ACItem = new ACItem();
-        dummy.Name = "dummy";
-        dummy.Type = ACItemTypes.Apple;
-        dummy.Price = 300;
-
-        let dummy2:ACItem = new ACItem();
-        dummy2.Name = "dummy";
-        dummy2.Type = ACItemTypes.Apple;
-        dummy2.Price = 300;
-
-        let dummy3:ACItem = new ACItem();
-        dummy3.Name = "dummy";
-        dummy3.Type = ACItemTypes.Apple;
-        dummy3.Price = 300;
-
-
-
-        let treeItem = new ACTree();
-        treeItem.Items = [dummy, dummy2, dummy3];
-
-        let houseItem = new ACItem();
-        houseItem.Type = ACItemTypes.House;
-
-        let bbsitem = new ACItem();
-        bbsitem.Type = ACItemTypes.BBS;
-        
-
-        this.town.MapItems["A1"][35] = treeItem;
-        this.town.MapItems["A1"][70] = houseItem;
-        this.town.MapItems["A2"][20] = bbsitem;
-
-        this.town.MapNPC["A1"][5] = this.villagers["Bob"];
-        this.town.MapNPC["A2"][3] = this.villagers["Alfonso"];
 
     }
 

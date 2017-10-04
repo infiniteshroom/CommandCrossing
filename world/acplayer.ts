@@ -159,13 +159,13 @@ export class ACPlayer {
 
 
 
-        let mapItem: ACItem = mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
+        let mapItem: ACItem = mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)];
 
         if (mapItem.Type === ACItemTypes.Hole) {
             let digItem = new ACDigItem();
             digItem.Item = item;
 
-            mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = digItem;
+            mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = digItem;
         }
 
     }
@@ -199,13 +199,13 @@ export class ACPlayer {
 
         if (item !== undefined && item !== null) {
             if (item.Type == ACItemTypes.Hole) {
-                mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+                mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = null;
                 return null;
             }
 
             else if (item.Type == ACItemTypes.Dig) {
                 let digItem = <ACDigItem>item;
-                mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+                mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = null;
                 return digItem.Item;
             }
         }
@@ -213,7 +213,7 @@ export class ACPlayer {
         let hole: ACItem = new ACItem();
         hole.Type = ACItemTypes.Hole;
 
-        mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = hole;
+        mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = hole;
 
         return null;
 
@@ -270,7 +270,7 @@ export class ACPlayer {
             x--;
         }
 
-        mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = item;
+        mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = item;
 
 
         this.removeFromPockets(index);
@@ -290,8 +290,8 @@ export class ACPlayer {
             let y: number = this.acreSquareY;
 
             //If underfoot remove item, else check square the player is moving to.
-            if (mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
-                mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+            if (mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
+                mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = null;
 
             }
 
@@ -315,8 +315,8 @@ export class ACPlayer {
                 }
 
 
-                if (mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
-                    return mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+                if (mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
+                    return mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = null;
 
                 }
 
@@ -341,8 +341,8 @@ export class ACPlayer {
 
 
         //If underfoot return item, else check square the player is moving to.
-        if (mapNPC[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
-            return mapNPC[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
+        if (mapNPC[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
+            return mapNPC[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)];
 
         }
 
@@ -391,8 +391,8 @@ export class ACPlayer {
 
         //covers situations where the player is moving between arcs
         try {
-            if (mapNPC[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
-                return mapNPC[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
+            if (mapNPC[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
+                return mapNPC[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)];
 
             }
 
@@ -422,8 +422,8 @@ export class ACPlayer {
 
 
         //If underfoot return item, else check square the player is moving to.
-        if (mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
-            return mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
+        if (mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
+            return mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)];
 
         }
 
@@ -472,11 +472,11 @@ export class ACPlayer {
 
         //covers situations where the player is moving between arcs
         try {
-            if (mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] != null) {
+            if (mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] != null) {
                 if(remove) {
-                    mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)] = null;
+                    mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)] = null;
                 }
-                return mapItems[this.getAcre()][((y - 2) * this.maxRows) + (x - 1)];
+                return mapItems[this.getAcre()][((y - 1) * this.maxRows) + (x - 1)];
 
             }
 

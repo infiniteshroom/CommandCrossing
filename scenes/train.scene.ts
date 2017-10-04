@@ -525,6 +525,7 @@ export class TrainScene extends BaseScene {
             Music.stopAll();
             Music.playOverWorldMusic(new Date().getHours().toString());
 
+            this.world.generate();
             SceneManager.set(new TownScene(this.screen, this.world));
         }
     }
@@ -540,6 +541,7 @@ export class TrainScene extends BaseScene {
             Music.stopAll();
             Music.playOverWorldMusic(new Date().getHours().toString());
 
+            this.world.generate();
             SceneManager.set(new TownScene(this.screen, this.world));
         }
     }
